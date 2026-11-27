@@ -1,0 +1,148 @@
+/* Shorts-only comparison and browser-local collections. Existing gallery owns playback and search. */
+(() => {
+'use strict';
+const byId=id=>document.getElementById(id), K='geben147.youtube-shorts-preview.workspace.v1', $=id=>byId('sw-'+id), ms=86400000, nf=new Intl.NumberFormat('ko-KR',{maximumFractionDigits:1});
+const validId=/^[\w-]{11}$/, channelId=/^UC[\w-]{22}$/, finite=Number.isFinite, day=x=>typeof x==='string'&&/^\d{4}-\d\d-\d\d$/.test(x)?Date.parse(x+'T00:00:00Z'):NaN;
+const newId=()=>crypto.randomUUID?.()||Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
+const fold=x=>String(x??'').normalize('NFKC').toLowerCase().replace(/\s+/g,' ').trim();
+const urlOK=x=>{try{return new URL(x).protocol==='https:';}catch{return false;}};
+const make=(tag,label,cls)=>{const n=document.createElement(tag);if(label!=null)n.textContent=label;if(cls)n.className=cls;return n;};
+const btn=(label,fn,cls)=>{const b=make('button',label,cls);b.type='button';b.addEventListener('click',fn);return b;};
+const compare=(a,b,dir)=>a==null?(b==null?0:1):b==null?-1:((typeof a==='string'?a.localeCompare(b):a-b)*(dir==='asc'?1:-1));
+const metrics={earn:'선택 금액',views:'공개 조회수',recent:'게시일',stable:'최근 중앙값',hit:'목표 달성률',floor:'하위 25%',avg:'최근 평균',down:'감소율',repeat:'반복 성과율',sample:'연속 표본 편수',concentration:'최고작 비중',work:'직접 작업시간',cost:'제작비',sales:'실제 거래액',orders:'실제 거래 건수',repeatOrders:'반복 거래 건수',profit:'실현 이익',hourly:'시간당 이익',age:'콘텐츠 시작 경과일',d7:'D7 조회수',grade:'근거 등급'};
+const metricOptions=Object.entries(metrics);
+const fields=['q','period','country','ai','set','market','lo','hi','sort','size','video-days','trend-days','trend-cut','trend-min','trend-status','joined-lo','joined-hi','count-lo','count-hi','sample-lo','sample-hi','med-lo','med-hi','hit-lo','hit-hi'];
+const extra=['cohort','evidence','money','model','fx','target','dir','one','workMax','costMax'];
+const presets=[{id:'steady',name:'1순위 · 지속수익',sub:'최근 1년 · AI · 반복 성과 · 채널당 1편',fields:{period:'365',ai:'ai',sort:'repeat',one:true,workMax:'30',evidence:'B',dir:'desc'}},{id:'fresh',name:'2순위 · 신규 채널',sub:'시작 7~90일 · 정확한 D7 비교',fields:{sort:'d7',one:true,dir:'desc'}},{id:'business',name:'3순위 · 낮은 관여·사업 확장',sub:'직접 작업·제작비·실거래·시간당 이익',fields:{sort:'hourly',one:true,workMax:'30',dir:'desc'}}];
+let state,api,today,defaults,active='',collection='',selection='',map=new Map(),matchedNames=new Map(),ordered=[],loadFailed=false,loaded=false;
+function read(){try{const o=JSON.parse(localStorage.getItem(K)||'null');if(o&&typeof o==='object')return {videos:Array.isArray(o.videos)?o.videos:[],channels:Array.isArray(o.channels)?o.channels:[],sets:Array.isArray(o.sets)?o.sets:[],initial:o.initial||null,density:[1,2,3].includes(o.density)?o.density:2};}catch{}return {videos:[],channels:[],sets:[],initial:null,density:2};}
+function say(text){$('notice').textContent=text;}
+function save(){try{localStorage.setItem(K,JSON.stringify(state));return true;}catch{say('브라우저 저장소에 쓸 수 없습니다. 이 탭에서만 유지됩니다.');return false;}}
+function fval(id){const n=byId(id)||$(id);return n.type==='checkbox'?n.checked:n.value;}
+function setval(id,v){const n=byId(id)||$(id);if(!n)return;if(n.type==='checkbox')n.checked=v===true;else if(n.tagName!=='SELECT'||[...n.options].some(o=>o.value===String(v)))n.value=v??'';}
+function snapshotFields(){return Object.fromEntries([...fields,...extra].map(k=>[k,fval(k)]));}
+function restore(values){for(const [k,v] of Object.entries({...defaults,...values}))setval(k,v);}
+function clickView(view,href){
+ const frame=$('frame'); $('gallery').hidden=view!=='gallery';$('library').hidden=view!=='library';frame.hidden=view!=='frame';
+ if(view==='frame'&&frame.getAttribute('src')!==href)frame.src=href;
+ $('rail').querySelectorAll('[data-view]').forEach(n=>n.setAttribute('aria-current',String(n.dataset.view===(href||view))));
+}
+function paintPresets(){for(const b of $('presets').querySelectorAll('[data-preset]'))b.setAttribute('aria-pressed',String(active===b.dataset.preset)); $('sortLabel').textContent='정렬 우선 · '+(metrics[fval('sort')]||'기존 기준')+' '+(fval('dir')==='asc'?'↑':'↓');}
+function reset(alsoUrl=false){active='';collection='';selection='';restore({});if(alsoUrl){const u=new URL(location.href);u.search='';u.hash='';history.replaceState(history.state,'',u);}clickView('gallery');paintPresets();}
+function applySet(fields0,preset='',suppress=false){active=presets.some(p=>p.id===preset)?preset:'';collection='';selection='';restore(fields0||{});clickView('gallery');paintPresets();if(!suppress)api.refresh();}
+function binding(label,id,opts){const l=make('label',label);const e=make('select');e.id='sw-'+id;for(const [v,t] of opts)e.add(new Option(t,v));l.append(e);return l;}
+function textbox(label,id,value='',placeholder=''){const l=make('label',label);const e=make('input');e.id='sw-'+id;e.type='number';e.min='0';e.step='any';e.value=value;e.placeholder=placeholder;l.append(e);return l;}
+function amountName(){return ({estimate:'광고 추정',actual:'광고 실측',sales:'실제 거래액',profit:'실현 이익'})[fval('money')];}
+const nonneg=v=>finite(v)&&v>=0?v:null;
+function modelAmount(x,base){const m=meta(x);const v=fval('money');if(v!=='estimate')return ({actual:m.actual,sales:m.sales,profit:m.profit})[v]??null;
+ const model=fval('model'), k=fval('country'), fx=Number(fval('fx'));if(model==='unpriced'||x.v==null||!finite(x.v)||x.groups.includes('미산정 후보'))return null;
+ if(model==='p1')return x.v*.25;
+ if(model==='air')return finite(base)&&fx>0&&fx<=100000?base*fx/1400:null;
+ const us={business:8,education:6,tech:5,animal:3,drama:2.5,music:1.5,general:3.5};const cf={KR:.4,JP:.55,US:1};return model==='m3'&&us[m.record?.genre]&&fx>0&&fx<=100000?x.v/1000*us[m.record.genre]*cf[k]*.02*fx:null;
+}
+const eligibleSource=(e,key)=>urlOK(e?.[key]?.source)?e[key]:null;
+function meta(x){const r=map.get(x.id)||matchedNames.get(fold(x.ch)),e=r?.evidence||{};
+ const batch=r?.cohorts?.snapshot,arr=batch&&!batch.partial&&urlOK(r?.source)?(batch.videos||[]).map(a=>nonneg(a?.[2])).filter(n=>n!==null):[];
+ const repeat=arr.length>=20?arr.filter(n=>n>=100000).length/arr.length:null;const sum=arr.reduce((a,b)=>a+b,0), concentration=arr.length>=20&&sum>0?Math.max(...arr)/sum:null;
+ const starts=r?.early;const startDate=starts?.formatStartConfirmed===true?starts.formatStart:starts?.firstPublicConfirmed===true?starts.firstPublicDate||starts.oldestVisible:null;
+ const age=urlOK(starts?.source)&&finite(day(startDate))?Math.floor((today-day(startDate))/ms):null;
+ const candidateAging=age??(finite(day(starts?.oldestVisible))?Math.floor((today-day(starts.oldestVisible))/ms):null);
+ const cohort=r?.cohorts?.['7d'], observed=cohort?.videos?.find(a=>a?.[0]===x.id);
+ const d7=cohort&&!cohort.partial&&urlOK(r?.source)?nonneg(observed?.[2]):null;
+ const production=eligibleSource(e,'production'), actual=eligibleSource(e,'actualRevenue'), business=eligibleSource(e,'business');
+ const work=nonneg(production?.directMinutes), hours=nonneg(business?.directHours), profit=finite(business?.profitKRW)?business.profitKRW:null;
+ const videoSource=urlOK(x.src)?x.src:null, publicOriginal=/^https:\/\/(?:www\.)?(?:youtube\.com|youtu\.be)\//i.test(videoSource??'')&&validId.test(x.id)&&nonneg(x.v)!=null&&finite(day(x.d));
+ const rightsBlocked=e.rightsStatus==='block'||e.rightsStatus==='blocked'||e.rightsStatus==='exclude';
+ const actualAmount=actual?.type==='ads'&&actual.videoId===x.id?nonneg(actual.amountKRW):null;
+ const recurring=eligibleSource(e,'recurringRevenue');
+ const sustainable=recurring?.type==='ads'&&Array.isArray(recurring.periods)&&new Set(recurring.periods.filter(p=>typeof p?.month==='string'&&/^\d{4}-\d\d$/.test(p.month)&&finite(p.amountKRW)&&p.amountKRW>0).map(p=>p.month)).size>=3;
+ const sales=nonneg(business?.transactionKRW), orders=Number.isInteger(business?.transactions)?nonneg(business.transactions):null, repeatOrders=Number.isInteger(business?.repeatTransactions)?nonneg(business.repeatTransactions):null;
+ const grade=(actualAmount!=null||production||business||sustainable)?3:publicOriginal||r&&urlOK(r.source)&&nonneg(x.v)!=null&&finite(day(x.d))?2:videoSource&&nonneg(x.v)!=null?1:null;
+ return {record:r,grade,videoSource,repeat,concentration,sample:arr.length||null,age,d7,candidateAging,work,cost:nonneg(production?.costKRW),sales,orders,repeatOrders,profit,hourly:profit!=null&&hours>0?profit/hours:null,actual:actualAmount,sustainable,rightsBlocked};
+}
+function evidenceStatus(m){if(m.rightsBlocked)return false;
+ if(active==='steady')return m.grade>=2&&m.repeat>=.3&&m.concentration!=null&&m.concentration<=.25&&m.work!=null&&m.work<=Number(fval('workMax')||30)&&m.sustainable;
+ if(active==='fresh')return m.grade>=2&&m.age!=null&&m.age>=7&&m.age<=90&&m.d7!=null;
+ if(active==='business')return m.grade>=2&&m.work!=null&&m.work<=Number(fval('workMax')||30)&&m.cost!=null&&m.sales!=null&&m.orders>0&&m.repeatOrders!=null&&m.hourly!=null;
+ return m.grade===3;
+}
+function cutoff(id){const s=fval(id);const n=Number(s);return s!==''&&finite(n)&&n>=0?n:null;}
+function restrict(rows){const gr=fval('evidence'), cohort=fval('cohort'), work=cutoff('workMax'), cost=cutoff('costMax'), goal=cutoff('target');const saveList=collection?state[collection]:[];const keys=new Set(saveList.map(o=>o.ref));return rows.filter(x=>{
+ const m=meta(x), grade=({A:3,B:2,C:1})[gr], yes=evidenceStatus(m);
+ if(collection&&!(keys.has(collection==='videos'?x.id:channelKey(x)))||selection&&selection!==channelKey(x))return false;
+ if(gr==='none'&&m.grade!=null||grade&&m.grade!=null&&m.grade<grade||grade&&m.grade==null&&!active)return false;
+ if(cohort==='met'&&!yes||cohort==='research'&&yes)return false;
+ if(active==='fresh'&&m.age!=null&&(m.age<7||m.age>90))return false;
+ if(work!=null&&m.work!=null&&m.work>work||cost!=null&&m.cost!=null&&m.cost>cost)return false;
+ if(goal!=null){const a=api.amount(x);if(a==null||a<goal)return false;}
+ return true;
+});}
+function channelKey(x){const r=map.get(x.id)||matchedNames.get(fold(x.ch));return r&&channelId.test(r.id)?r.id:'name:'+fold(x.ch||x.id);}
+function metric(x,k){if(k==='earn')return api.amount(x);if(k==='views')return finite(x.v)?x.v:null;if(k==='recent')return finite(day(x.d))?day(x.d):null;if(['stable','hit','floor','avg','down'].includes(k)){const n=api.trend(x,k);return finite(n)?(k==='down'?-n:n):null;}return meta(x)[k]??null;}
+function rank(rows,key){const dir=fval('dir');ordered=rows.map(x=>({x,v:metric(x,key),met:evidenceStatus(meta(x))})).sort((a,b)=>{
+ const c=compare(a.v,b.v,dir);if(c)return c;if(active&&a.met!==b.met)return a.met?-1:1;
+ if(active==='fresh'){const ax=meta(a.x), bx=meta(b.x);const fit=m=>m.candidateAging!=null&&m.candidateAging>=7&&m.candidateAging<=90?0:1;const t=fit(ax)-fit(bx);if(t)return t;}
+ if(collection){const ix=state[collection].findIndex(o=>o.ref===(collection==='videos'?a.x.id:channelKey(a.x))), iy=state[collection].findIndex(o=>o.ref===(collection==='videos'?b.x.id:channelKey(b.x)));if(ix!==iy)return ix-iy;}
+ return (b.x.v??-1)-(a.x.v??-1)||a.x.id.localeCompare(b.x.id);
+ });
+ if(fval('one')){const seen=new Set();ordered=ordered.filter(({x})=>{const c=channelKey(x);if(seen.has(c))return false;seen.add(c);return true;});}
+ return ordered.map(i=>i.x);
+}
+function report(){const met=ordered.filter(x=>x.met).length;$('counts').textContent='근거 충족 '+nf.format(met)+'편 · 추가 조사 '+nf.format(ordered.length-met)+'편'+(loadFailed?' · V2 자료 연결 실패':!loaded?' · V2 자료 읽는 중':'');paintPresets();}
+function renameBox(label,onDone){const d=$('dialog'), input=$('name');$('dialogTitle').textContent=label;input.value='';$('dialogForm').onsubmit=e=>{e.preventDefault();const s=input.value.trim().slice(0,80);if(!s)return;onDone(s);d.close();};d.showModal();input.focus();return input;}
+function toggle(kind,ref,name){const i=state[kind].findIndex(o=>o.ref===ref);if(i>=0){const [old]=state[kind].splice(i,1);if(state.initial?.id===old.id&&state.initial.kind===kind)state.initial=null;}else state[kind].push({id:newId(),ref,name});if(save())say(i>=0?'즐겨찾기에서 제외했습니다.':'즐겨찾기에 저장했습니다.');if(collection===kind)api.refresh();else for(const b of document.querySelectorAll('.sw-star'))if(b.dataset.kind===kind&&b.dataset.ref===ref)b.setAttribute('aria-pressed',String(i<0));}
+function decorate(card,x){const m=meta(x),evidence=evidenceStatus(m),tip=(s,v,c)=>{const n=make('span',s+' '+v,'sw-tag sw-'+c);return n;};const el=make('div',null,'sw-facts');
+ el.append(tip(m.grade==null?'근거 미확인':'근거 '+['','C','B','A'][m.grade], '',m.grade==null?'gray':'blue'),tip(evidence?'근거 충족':m.rightsBlocked?'권리 문제 · 제외':'추가 조사','',evidence?'blue':m.rightsBlocked?'gray':'orange'));
+ const visible=active==='steady'?[['반복',m.repeat==null?null:nf.format(m.repeat*100)+'%','blue'],['직접',m.work==null?null:nf.format(m.work)+'분','purple'],['지속수익',m.sustainable?'확인':null,'green']]:active==='fresh'?[['시작',m.age==null?null:m.age+'일','orange'],['D7',m.d7==null?null:nf.format(m.d7)+'회','blue']]:active==='business'?[['직접',m.work==null?null:nf.format(m.work)+'분','purple'],['제작비',m.cost,'gray'],['실거래액',m.sales,'green'],['거래',m.orders==null?null:m.orders+'건','blue'],['반복거래',m.repeatOrders==null?null:m.repeatOrders+'건','blue'],['시간당 이익',m.hourly,'green']]:[];
+ for(const [k,v,c] of visible)el.append(tip(k,v==null?'미산정':typeof v==='number'?moneyText(v):v,v==null?'gray':c));
+ const l=card.querySelector('.text');const cash=l?.querySelector('.cash');if(cash){cash.classList.add(api.amount(x)==null?'sw-gray':'sw-green');cash.title=amountName();const label=make('span',amountName(),fval('money')==='estimate'?'sw-tag sw-orange':'sw-tag');cash.replaceChildren(label,document.createTextNode(' '+(api.amount(x)==null?'미산정':moneyText(api.amount(x)))));if(api.amount(x)!=null)cash.setAttribute('data-amount',String(api.amount(x)));}
+ const nav=l?.querySelector('.links');if(!nav)return card;l.insertBefore(el,nav);
+ for(const [kind,ref,name,s] of [['videos',x.id,x.t,'영상'],['channels',channelKey(x),x.ch,'채널']]){
+ const b=btn(s+' 저장',()=>{toggle(kind,ref,name);b.setAttribute('aria-pressed',String(state[kind].some(o=>o.ref===ref)));},'sw-star');b.dataset.kind=kind;b.dataset.ref=ref;b.setAttribute('aria-label',s+' 즐겨찾기 · '+name);b.setAttribute('aria-pressed',String(state[kind].some(o=>o.ref===ref)));nav.append(b);
+ }return card;
+}
+function moneyText(n){const abs=Math.floor(Math.abs(n));return (n<0?'−':'')+(abs<10000?nf.format(abs):nf.format(Math.floor(abs/10000))+'만');}
+function setInitial(item){state.initial=item; if(save())say(item?'다음 방문 첫 화면으로 저장했습니다.':'첫 화면 설정을 해제했습니다.');library();}
+function showFavorite(kind,item){reset();if(kind==='videos')setval('q',item.ref);else selection=item.ref;api.refresh();}
+function library(){const root=$('library');root.replaceChildren(make('h2','내 보관함'),make('p','현재 브라우저에 저장됩니다. 영상·채널·조건 조합은 서로 별개입니다.'));
+ const def=btn('첫 화면 기본값으로',()=>setInitial(null));root.append(def);
+ for(const [kind,label] of [['videos','영상 즐겨찾기'],['channels','채널 즐겨찾기'],['sets','저장한 조건 조합']]){const section=make('section',null,'sw-collection');const list=state[kind];const head=make('h3',label+' · '+list.length);section.append(head);
+ if(kind!=='sets')section.append(btn(label+' 바둑판 보기',()=>{reset();collection=kind;api.refresh();}),btn(label+' 목록을 첫 화면으로',()=>setInitial({kind,id:null})));
+ const ol=make('ol');for(const [i,item] of list.entries()){const li=make('li');const entry=btn(item.name,()=>kind==='sets'?applySet(item.fields,item.preset):showFavorite(kind,item),'sw-item');li.append(entry);
+ const first=state.initial?.id===item.id&&state.initial.kind===kind; if(first)li.append(make('span','첫 화면','sw-tag sw-blue'));
+ const name=btn('이름 변경',()=>{const input=renameBox(label+' 이름 변경',s=>{item.name=s;save();library();});input.value=item.name;input.select();});
+ const move=(d)=>{[list[i],list[i+d]]=[list[i+d],list[i]];save();library();};const up=btn('위로',()=>move(-1)), down=btn('아래로',()=>move(1));up.disabled=i===0;down.disabled=i===list.length-1;
+ li.append(name,up,down,btn('첫 화면 지정',()=>setInitial({kind,id:item.id})),btn('삭제',()=>{list.splice(i,1);if(first)state.initial=null;save();library();}));ol.append(li);}
+ if(!list.length)section.append(make('p','아직 저장한 항목이 없습니다.','sw-muted'));section.append(ol);root.append(section);}
+}
+function layout(){const main=document.querySelector('body > main');const gallery=make('div');gallery.id='sw-gallery';while(main.firstChild)gallery.append(main.firstChild);const libraryEl=make('section');libraryEl.id='sw-library';libraryEl.hidden=true;
+ const frame=make('iframe');frame.id='sw-frame';frame.title='기존 쇼츠 조사 화면';frame.hidden=true;
+ const shell=make('div',null,'sw-shell');shell.id='sw-shell';const rail=make('aside',null,'sw-rail');rail.id='sw-rail';rail.setAttribute('aria-label','쇼츠 왼쪽 메뉴');rail.append(make('div','YOUTUBE SHORTS','sw-app'),make('h2','쇼츠 탐색'));
+ const nav=make('nav');const link=(label,view,href,fn)=>{const b=make('a',label);b.href=href||'#'+view;b.dataset.view=href||view;b.addEventListener('click',e=>{if(e.button||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;e.preventDefault();fn();});nav.append(b);};
+ link('전체 쇼츠 바둑판','gallery',null,()=>{reset(true);api.refresh();});link('내 보관함','library',null,()=>{library();clickView('library');});for(const [text,h] of [['수익 재현 가능성 V2','reproducibility.html'],['신생 한국 자부심 · 1·3·5개월','reproducibility.html?topic='+encodeURIComponent('한국 자부심·해외반응')+'&join=5&model=AIR&order=amount']])link(text,'frame',h,()=>clickView('frame',h));
+ for(const [name,h,g] of [['광고수익 문턱표','earnings-thresholds.html','문턱별 조사'],['테마 비교표','topic-benchmarks.html','테마 비교']])link(name,'gallery',h,()=>{reset();setval('set',g);api.refresh();});
+ for(const [name,g] of [['테마 카드','테마 비교'],['투자·역사·한일 POV 카드','문턱별 조사']])link(name,'gallery','?set='+encodeURIComponent(g)+'#results',()=>{reset();setval('set',g);api.refresh();});
+ const source=make('a','GitHub 원본 기록');source.href='https://github.com/geben147-create/Insta/tree/main/youtube-shorts-revenue';source.target='_blank';source.rel='noopener noreferrer';nav.append(source);rail.append(nav);
+ const note=make('p','','sw-muted');note.id='sw-notice';note.setAttribute('aria-live','polite');rail.append(note);
+ main.append(gallery,libraryEl,frame);main.before(shell);shell.append(rail,main);
+ const bar=make('section',null,'sw-bar');bar.setAttribute('aria-label','추천 조건 조합');const top=make('div',null,'sw-bar-head');top.append(make('h2','추천 조건 조합'),btn('현재 조건 저장',()=>renameBox('조건 조합 이름',name=>{state.sets.push({id:newId(),name,fields:snapshotFields(),preset:active});if(save())say('검색·필터·정렬 조건을 저장했습니다.');})));bar.append(top);
+ const ps=make('div',null,'sw-presets');ps.id='sw-presets';for(const p of presets){const b=btn(p.name,()=>applySet(p.fields,p.id));b.dataset.preset=p.id;b.append(make('small',p.sub));ps.append(b);}bar.append(ps);
+ const inline=make('div',null,'sw-inline');inline.append(binding('비교 범위','cohort',[['all','전체 후보'],['met','근거 충족'],['research','추가 조사']]),binding('근거 등급','evidence',[['all','전체 등급'],['A','A · 정산·제작·사업 실측'],['B','B 이상 · 공개 원본 관측'],['C','C 이상 · 공개 기록'],['none','미확인만']]),binding('정렬 방향','dir',[['desc','내림차순 ↓'],['asc','오름차순 ↑']]));
+ const z=make('div',null,'sw-density');z.append(make('span','카드 크기'),btn('−',()=>density(-1)),btn('+',()=>density(1)));z.lastChild.setAttribute('aria-label','카드 확대');z.children[1].setAttribute('aria-label','카드 축소');inline.append(z);const order=make('strong',null,'sw-order');order.id='sw-sortLabel';inline.append(order);bar.append(inline);
+ const detail=make('details',null,'sw-advanced');detail.append(make('summary','금액 종류·모형·환율·목표 및 제작 조건'));const filters=make('div',null,'sw-inline');filters.append(binding('금액 종류','money',[['estimate','광고 추정'],['actual','광고 실측'],['sales','실제 거래액'],['profit','실현 이익']]),binding('계산 모형','model',[['air','기존 AIR'],['m3','M3 vidIQ (분야 확인 시)'],['p1','M5 P1 비교'],['unpriced','금액 환산 안 함']]),textbox('환율 (KRW/USD)','fx','1400'),textbox('목표액 (KRW)','target','','예: 5000000'),textbox('직접 작업 상한 (분)','workMax','','1·3순위 기본 30'),textbox('제작비 상한 (KRW)','costMax'));
+ const one=make('label','채널당 대표 1편');const c=make('input');c.id='sw-one';c.type='checkbox';one.prepend(c);filters.append(one);detail.append(filters,make('p','AIR·M3만 환율을 적용합니다. 공개 누적 조회수와 정시 조회수는 별개입니다. A는 출처가 있는 실측, B는 공개 원본 관측, C는 기타 공개 기록입니다. 순위 1의 지속수익은 독립된 3개월의 광고수익 근거를 요구합니다.','sw-muted'));bar.append(detail);
+ main.querySelector('header').after(bar);const status=make('span',null,'sw-result');status.id='sw-counts';status.setAttribute('aria-live','polite');byId('status').after(status);
+ const legacy=make('details',null,'sw-legacy');legacy.append(make('summary','채널 안정성과 기존 수익 구간'));byId('trend-controls').before(legacy);for(const id of ['trend-controls','ranges','range-note','market-chips'])legacy.append(byId(id));
+ const d=make('dialog');d.id='sw-dialog';d.setAttribute('aria-labelledby','sw-dialogTitle');const form=make('form');form.id='sw-dialogForm';const h=make('h2');h.id='sw-dialogTitle';const title=make('input');title.id='sw-name';title.required=true;title.maxLength=80;title.setAttribute('aria-label','저장 이름');const ok=make('button','저장');ok.type='submit';form.append(h,title,ok,btn('취소',()=>d.close()));d.append(form);document.body.append(d);
+ for(const a of main.querySelectorAll('header nav a[href]')){const h=a.getAttribute('href');if(h.startsWith('reproducibility.html'))a.addEventListener('click',e=>{if(e.button||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;e.preventDefault();clickView('frame',h);});}
+ byId('sort').replaceChildren(...metricOptions.map(([v,t])=>new Option(t,v,false,v==='stable')));
+ for(const id of extra)$(id).addEventListener(['fx','target','workMax','costMax'].includes(id)?'input':'change',()=>api.refresh());
+ frame.addEventListener('load',()=>{try{const ac=frame.contentDocument;if(ac?.location.origin!==location.origin)return;ac.addEventListener('click',e=>{const a=e.target.closest('a');if(!a||e.button||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||a.target==='_blank')return;const u=new URL(a.href);if(u.origin!==location.origin||!u.pathname.endsWith('/index.html'))return;e.preventDefault();reset();for(const [k,v] of u.searchParams)if(fields.includes(k))setval(k,v);api.refresh();},{once:false});}catch{}});
+}
+function density(change){state.density=Math.min(3,Math.max(1,state.density+change));$('shell').dataset.density=state.density;save();}
+async function attachEvidence(){try{const res=await fetch('repro-data.json?schema=1',{cache:'no-cache'});if(!res.ok)throw Error('data');const d=await res.json();if(!Array.isArray(d.records))throw Error('schema');const tally=new Map();for(const r of d.records){const n=fold(r.name);if(n)tally.set(n,(tally.get(n)||0)+1);for(const x of [r.hero,...(r.extra||[])])if(x&&validId.test(x.id))map.set(x.id,r);for(const b of Object.values(r.cohorts||{}))for(const a of b.videos||[])if(validId.test(a[0]))map.set(a[0],r);}for(const r of d.records)if(tally.get(fold(r.name))===1)matchedNames.set(fold(r.name),r);loaded=true;}catch{loadFailed=true;}api.refresh();}
+function init(config){api=config;state=read();today=day(api.today);layout();$('shell').dataset.density=state.density;defaults=snapshotFields();const params=new URLSearchParams(location.search), explicit=fields.some(k=>params.has(k));if(!explicit&&state.initial){const {kind,id}=state.initial;const item=state[kind]?.find(o=>o.id===id);if(item&&kind==='sets')applySet(item.fields,item.preset,true);else if(item&&kind==='videos')setval('q',item.ref);else if(item&&kind==='channels')selection=item.ref;else if(kind==='videos'||kind==='channels')collection=kind;}
+ if(params.has('q')){reset();setval('q',params.get('q'));}
+ if(location.hash==='#library'){library();clickView('library');}else clickView('gallery');attachEvidence();}
+window.ShortsWorkspace={init,modelAmount,restrict,rank,decorate,report,reset};
+})();
