@@ -958,6 +958,848 @@
         "일본",
         "대조군"
       ]
+    },
+    {
+      "id": "UCWQlNyLkyeg9jy-Xaxm5JPg",
+      "name": "픽펀치",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-11-13",
+      "observed": "2026-11-27",
+      "summary": "한국 자부심 해설 · 1개월 이내 저성과 대조군. 확인 작품의 외국인 반응 실재·AI 여부 미확인.",
+      "source": "https://www.youtube.com/channel/UCWQlNyLkyeg9jy-Xaxm5JPg/shorts",
+      "about": "https://www.youtube.com/channel/UCWQlNyLkyeg9jy-Xaxm5JPg/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 1829
+      },
+      "evidence": {},
+      "hero": {
+        "id": "bIef-DZ00vo",
+        "date": "2026-11-22",
+        "views": 1829,
+        "title": "불꽃놀이 나라 일본이 한국에 반한 이유",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "BrlOvYHsMpo",
+          "date": "2026-11-24",
+          "views": 1734,
+          "title": "헌혈 문화에 놀란 미국이 한국에 반한 이유",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCQhKgP8Xg5aEPkKEPB6tYig",
+      "name": "행복하자",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-09-06",
+      "observed": "2026-11-27",
+      "summary": "한국 일상·문화 해외반응 소재 해설형. 같은 채널의 여러 10만 회 사례 확인. 영상 속 반응의 원출처와 AI 사용은 미확인.",
+      "source": "https://www.youtube.com/channel/UCQhKgP8Xg5aEPkKEPB6tYig/shorts",
+      "about": "https://www.youtube.com/channel/UCQhKgP8Xg5aEPkKEPB6tYig/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 433094
+      },
+      "evidence": {},
+      "hero": {
+        "id": "zOZ-iYL1JM0",
+        "date": "2026-11-17",
+        "views": 433094,
+        "title": "한국어로 길 안내했는데 美인이 알아들은 이유 #국뽕 #해외반응 #shorts",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "aXsoyb5Wijw",
+          "date": "2026-11-21",
+          "views": 277486,
+          "title": "새벽 2시도 안전한 韓 美 교수가 놀란 이유 #국뽕 #해외반응 #shorts",
+          "observed": "2026-11-27"
+        },
+        {
+          "id": "EsNxfaToeW8",
+          "date": "2026-11-22",
+          "views": 263055,
+          "title": "히딩크가 韓서 배운 게 축구가 아니었던 이유 #국뽕 #해외반응 #shorts",
+          "observed": "2026-11-27"
+        },
+        {
+          "id": "9NnzmBAMDwc",
+          "date": "2026-11-22",
+          "views": 203786,
+          "title": "사과해야 하냐는 日 韓 학생 선 그은 이유 #국뽕 #해외반응 #shorts",
+          "observed": "2026-11-27"
+        },
+        {
+          "id": "8plhIeGsJl0",
+          "date": "2026-11-18",
+          "views": 181374,
+          "title": "韓선 평범했던 아이 英 가니 천재 된 이유 #국뽕 #해외반응 #shorts",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ],
+      "cohorts": {
+        "snapshot": {
+          "observed": "2026-11-27",
+          "start": "2026-11-21",
+          "end": "2026-11-25",
+          "partial": false,
+          "videos": [
+            [
+              "Gzl_-LVBeWA",
+              "2026-11-25",
+              3720
+            ],
+            [
+              "6lhOjKii3VA",
+              "2026-11-25",
+              2802
+            ],
+            [
+              "OLYN5w_wdDU",
+              "2026-11-25",
+              6123
+            ],
+            [
+              "c2iTFlTMyos",
+              "2026-11-25",
+              9217
+            ],
+            [
+              "jbyNhSu6E28",
+              "2026-11-24",
+              42322
+            ],
+            [
+              "mkV_mHPD-mg",
+              "2026-11-24",
+              29874
+            ],
+            [
+              "ii8xTmVO__s",
+              "2026-11-24",
+              16908
+            ],
+            [
+              "bqRJC5e1YHI",
+              "2026-11-24",
+              32523
+            ],
+            [
+              "ytamS_VyS9c",
+              "2026-11-23",
+              29465
+            ],
+            [
+              "caID5GLfwr4",
+              "2026-11-23",
+              47186
+            ],
+            [
+              "R7eT_yQkDtU",
+              "2026-11-23",
+              34592
+            ],
+            [
+              "kjv23kKwwB4",
+              "2026-11-23",
+              29165
+            ],
+            [
+              "QCkQflnCbNM",
+              "2026-11-22",
+              36962
+            ],
+            [
+              "OCKpzZqufyo",
+              "2026-11-22",
+              38841
+            ],
+            [
+              "9NnzmBAMDwc",
+              "2026-11-22",
+              203786
+            ],
+            [
+              "EsNxfaToeW8",
+              "2026-11-22",
+              263055
+            ],
+            [
+              "aXsoyb5Wijw",
+              "2026-11-21",
+              277645
+            ],
+            [
+              "PgEdKslTuWQ",
+              "2026-11-21",
+              27331
+            ],
+            [
+              "TgHqQ1oLkbs",
+              "2026-11-21",
+              24463
+            ],
+            [
+              "XN29r1UfNvc",
+              "2026-11-21",
+              13423
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "UCSBGzZ5q4lhq_Qd2XtG1skQ",
+      "name": "자랑한국",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-10-13",
+      "observed": "2026-11-27",
+      "summary": "한국 생활·문화·산업 소개 리스트형. 100만 회 넘긴 작품 여러 편 확인. 해설의 개별 주장·외국인 반응 및 AI 여부는 미확인.",
+      "source": "https://www.youtube.com/channel/UCSBGzZ5q4lhq_Qd2XtG1skQ/shorts",
+      "about": "https://www.youtube.com/channel/UCSBGzZ5q4lhq_Qd2XtG1skQ/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 1313773
+      },
+      "evidence": {},
+      "hero": {
+        "id": "5jL5qKHMLPE",
+        "date": "2026-11-12",
+        "views": 1313773,
+        "title": "외국인이 한국 노인들 보고 말문이 막힌 10가지",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "8tyDnfJlmj8",
+          "date": "2026-11-07",
+          "views": 1104467,
+          "title": "한국 때문에 요즘 골치 꽤나 아프다는 나라 TOP5",
+          "observed": "2026-11-27"
+        },
+        {
+          "id": "UMXDwoiFdUo",
+          "date": "2026-11-10",
+          "views": 1026205,
+          "title": "세계가 아직 못 깬 한국의 기록 10가지",
+          "observed": "2026-11-27"
+        },
+        {
+          "id": "7lKeGGiJyzA",
+          "date": "2026-11-11",
+          "views": 844050,
+          "title": "강대국 사람도 한국 동네에서 기죽는 10가지",
+          "observed": "2026-11-27"
+        },
+        {
+          "id": "aIvZ51kICtM",
+          "date": "2026-11-26",
+          "views": 129860,
+          "title": "외국인이 한국 시골 가 보고 두 눈을 의심한 10가지",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCNze0pQiIYlK1G_2xtg-AXg",
+      "name": "ilovekor",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-07-25",
+      "observed": "2026-11-27",
+      "summary": "한국인의 친절·한식·한류 소재. 영상별 공개 조회 확인, 영상 소스와 사용권 확인은 별도.",
+      "source": "https://www.youtube.com/channel/UCNze0pQiIYlK1G_2xtg-AXg/shorts",
+      "about": "https://www.youtube.com/channel/UCNze0pQiIYlK1G_2xtg-AXg/about",
+      "ai": "unknown",
+      "early": {
+        "verified": false,
+        "matchedViews": 8910831
+      },
+      "evidence": {},
+      "hero": {
+        "id": "Vqx7VbUFgrg",
+        "date": "2026-09-20",
+        "views": 8910831,
+        "title": "스마트폰을 잃어버린 외국인에게 번개처럼 달려가 핸드폰을 찾아준 한국인의 클라스",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "5bP5CFvje1A",
+          "date": "2026-11-15",
+          "views": 1021623,
+          "title": "한국 덕질은 유행일 뿐이라던 사람들에게",
+          "observed": "2026-11-27"
+        },
+        {
+          "id": "PgRNQcJeP7E",
+          "date": "2026-10-06",
+          "views": 658595,
+          "title": "너무 맛있는데 이유를 설명 못 하겠다는 한국 음식",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCg_ec8rNey3qBgjHSQwBmVw",
+      "name": "코리아부심",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-08-02",
+      "observed": "2026-11-27",
+      "summary": "한국 고깃집·김치찌개 등 한식 해외반응 소재. 출연·편집 원출처와 사용권은 미확인.",
+      "source": "https://www.youtube.com/channel/UCg_ec8rNey3qBgjHSQwBmVw/shorts",
+      "about": "https://www.youtube.com/channel/UCg_ec8rNey3qBgjHSQwBmVw/about",
+      "ai": "unknown",
+      "early": {
+        "verified": false,
+        "matchedViews": 1535905
+      },
+      "evidence": {},
+      "hero": {
+        "id": "za6stwNMynw",
+        "date": "2026-10-13",
+        "views": 1535905,
+        "title": "고기 다 먹었는데 또 나온다고?… 한국 고깃집에서 멘붕 온 영국 승무원들 #해외반응 #영국",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "BV06M8FjBZc",
+          "date": "2026-10-07",
+          "views": 490199,
+          "title": "튀르키예 음식도 맛있는데… 고향 가면 일주일 만에 생각난다는 한국 음식 #해외반응 #김치찌개",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UC3hs0RyuRcKHRweoSOwbpcg",
+      "name": "감동안테나",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-07-16",
+      "observed": "2026-11-27",
+      "summary": "한국 식당·채식·한식 해외반응 소재. 사용권 및 AI 여부는 미확인.",
+      "source": "https://www.youtube.com/channel/UC3hs0RyuRcKHRweoSOwbpcg/shorts",
+      "about": "https://www.youtube.com/channel/UC3hs0RyuRcKHRweoSOwbpcg/about",
+      "ai": "unknown",
+      "early": {
+        "verified": false,
+        "matchedViews": 1423073
+      },
+      "evidence": {},
+      "hero": {
+        "id": "oy-Ljv_CW7U",
+        "date": "2026-09-13",
+        "views": 1423073,
+        "title": "외국인이 여름내내 먹게된 한국 식당의 신기한 메뉴 #먹방 #해외반응 #외국인반응 #k푸드 #한국음식",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "_Podz6hkgGM",
+          "date": "2026-09-07",
+          "views": 452577,
+          "title": "채식주의자들에게 천국으로 소문난 한국 근황 #먹방 #해외반응 #외국인반응 #k푸드 #한국음식",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCAtJu9lyIMYzP3yvbpGj06Q",
+      "name": "카라쨩",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-08-22",
+      "observed": "2026-11-27",
+      "summary": "한국 문화·일상 해설형 비교 사례. 개별 주장·외국인 반응 및 AI 여부는 미확인.",
+      "source": "https://www.youtube.com/channel/UCAtJu9lyIMYzP3yvbpGj06Q/shorts",
+      "about": "https://www.youtube.com/channel/UCAtJu9lyIMYzP3yvbpGj06Q/about",
+      "ai": "unknown",
+      "early": {
+        "verified": false,
+        "matchedViews": 53537
+      },
+      "evidence": {},
+      "hero": {
+        "id": "RrgwwNQN70g",
+        "date": "2026-09-19",
+        "views": 53537,
+        "title": "일본이랑 독같을 줄 알았더니 미국이 한국와서 소름돋은 이유",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "7YHMblOPQ-I",
+          "date": "2026-08-24",
+          "views": 25651,
+          "title": "외국인들이 한국을 절대 건드리면 안되는 나라라고 꼽은 이유",
+          "observed": "2026-11-27"
+        },
+        {
+          "id": "7SJPvf05ark",
+          "date": "2026-08-27",
+          "views": 19857,
+          "title": "쌀 남아돌던 미국 농부가 한국 김밥에 웃은 이유",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCzLhL14j7fPczi67ey7NRtA",
+      "name": "매너티 브리핑",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-07-16",
+      "observed": "2026-11-27",
+      "summary": "한국 관광·문화 해설형 대조군. 제목에 언급된 1억 회는 이 영상 조회수가 아님.",
+      "source": "https://www.youtube.com/channel/UCzLhL14j7fPczi67ey7NRtA/shorts",
+      "about": "https://www.youtube.com/channel/UCzLhL14j7fPczi67ey7NRtA/about",
+      "ai": "unknown",
+      "early": {
+        "verified": false,
+        "matchedViews": 9013
+      },
+      "evidence": {},
+      "hero": {
+        "id": "xffJ9cfEnGI",
+        "date": "2026-11-07",
+        "views": 9013,
+        "title": "한국 관광 영상이 1억 뷰를 넘긴 뜻밖의 이유",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "jNs6Ee0_NXs",
+          "date": "2026-11-11",
+          "views": 5376,
+          "title": "한국 배우들이 서양 황후극을 만들자 세계가 주목했다",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCWcj1Ex86o9Hz6dJ9eH0AJw",
+      "name": "국뽕찬다",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-04-14",
+      "observed": "2026-11-27",
+      "summary": "천만 회 이상 영상이 여럿 있는 비교 채널. 개설이 5개월보다 오래돼 신생 순위에 포함하지 않음. 출연·영상 사용권은 미확인.",
+      "source": "https://www.youtube.com/channel/UCWcj1Ex86o9Hz6dJ9eH0AJw/shorts",
+      "about": "https://www.youtube.com/channel/UCWcj1Ex86o9Hz6dJ9eH0AJw/about",
+      "ai": "unknown",
+      "early": {
+        "verified": false,
+        "matchedViews": 10549694
+      },
+      "evidence": {},
+      "hero": {
+        "id": "s6M0YEY9dWc",
+        "date": "2026-10-23",
+        "views": 10549694,
+        "title": "해외에서 극찬 터진 한국 구조대 클라스",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "MOzRYcEJJR8",
+          "date": "2026-10-21",
+          "views": 10351363,
+          "title": "해외에서 난리 난 한국인의 미친 착지법",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "기존 비교"
+      ]
+    },
+    {
+      "id": "UCpvOMyLDdFT1GfGwqpTeL2w",
+      "name": "외국인시점",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-11-18",
+      "observed": "2026-11-27",
+      "summary": "한국 생활·국밥·도어락 등 실촬영 원본에 AI 내레이션을 더했다고 명시. 리믹스 허락 및 YPP 여부는 미확인.",
+      "source": "https://www.youtube.com/channel/UCpvOMyLDdFT1GfGwqpTeL2w/shorts",
+      "about": "https://www.youtube.com/channel/UCpvOMyLDdFT1GfGwqpTeL2w/about",
+      "ai": "yes",
+      "early": {
+        "verified": true,
+        "matchedViews": 272629
+      },
+      "evidence": {},
+      "hero": {
+        "id": "BJ3HhK277S0",
+        "date": "2026-11-23",
+        "views": 272629,
+        "title": "캐나다로 이민 간 한국 아내, 타이어 교체부터 겨울 준비까지 직접 하다 보니…",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "fcwXtzCtKOY",
+          "date": "2026-11-23",
+          "views": 140560,
+          "title": "10년 전 달아 드린 처갓집 도어락이 다 닳자, 한국 사위가 일본으로 가서…",
+          "observed": "2026-11-27"
+        },
+        {
+          "id": "BA2eoXgKLeY",
+          "date": "2026-11-26",
+          "views": 34947,
+          "title": "평생 미국에서만 산 부모님이 처음 한국에 온 날, 공항 출구에서 딸을 보자…",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCzDBs6Fz4DM6xubGJUppkLQ",
+      "name": "한국새로보다",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-11-08",
+      "observed": "2026-11-27",
+      "summary": "핀란드이다 IDA·KING KWESI·LizLaz 등의 원본을 명시한 해외반응 편집. 2차 사용 허락·YPP는 미확인.",
+      "source": "https://www.youtube.com/channel/UCzDBs6Fz4DM6xubGJUppkLQ/shorts",
+      "about": "https://www.youtube.com/channel/UCzDBs6Fz4DM6xubGJUppkLQ/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 828778
+      },
+      "evidence": {},
+      "hero": {
+        "id": "9vIMvdKOAhY",
+        "date": "2026-11-19",
+        "views": 828778,
+        "title": "조용한 나라 핀란드에서 온 여자가 한국에서 깜짝 놀란 것들",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "WDhu91-esS0",
+          "date": "2026-11-20",
+          "views": 208268,
+          "title": "중국에선 다들 쳐다봤는데… 한국에서 6년 산 흑인 모델이 느낀 차이",
+          "observed": "2026-11-27"
+        },
+        {
+          "id": "pG0JB1nP_X4",
+          "date": "2026-11-24",
+          "views": 23465,
+          "title": "\"지연을 한 번도 못 봤어요\" 처음 한국 온 독일 여자가 놀란 것들",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCIrI03pUN1MYeHXgL65lfLg",
+      "name": "국뽕탐사대",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-08-31",
+      "observed": "2026-11-27",
+      "summary": "가상 한일 비교와 일본 국회 영상 인용. 실재 해외반응이 아니라 해설·가상 구성으로 별도 표시.",
+      "source": "https://www.youtube.com/channel/UCIrI03pUN1MYeHXgL65lfLg/shorts",
+      "about": "https://www.youtube.com/channel/UCIrI03pUN1MYeHXgL65lfLg/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 478891
+      },
+      "evidence": {},
+      "hero": {
+        "id": "F9w4cG5QdvU",
+        "date": "2026-11-22",
+        "views": 478891,
+        "title": "한국 VS 일본, 야차룰로 1:1 붙으면?",
+        "observed": "2026-11-27"
+      },
+      "extra": [],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCA09Y5q1OxterXcEnKb2ntw",
+      "name": "건너온이웃",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-10-16",
+      "observed": "2026-11-27",
+      "summary": "MBC 라디오스타 스튜디오 대화 인용. 국내 방송 클립으로 실제 해외 현지 반응은 아님. 사용권 미확인.",
+      "source": "https://www.youtube.com/channel/UCA09Y5q1OxterXcEnKb2ntw/shorts",
+      "about": "https://www.youtube.com/channel/UCA09Y5q1OxterXcEnKb2ntw/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 266699
+      },
+      "evidence": {},
+      "hero": {
+        "id": "a94Y3NyKpLQ",
+        "date": "2026-11-23",
+        "views": 266699,
+        "title": "한국 생선 이름을 인도말로 하면?",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "tErP6dMAJmU",
+          "date": "2026-11-24",
+          "views": 75431,
+          "title": "외국인들 앞에서 한국 국적 자랑하면 생기는 일",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UC5i_ZtbmypvGrxIYh4tXbBg",
+      "name": "태극냥",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-10-26",
+      "observed": "2026-11-27",
+      "summary": "미국 강의 속 한국 공동체·응원문화 소재. 강연 클립 권리와 제목 속 일반화는 별도 검증 필요.",
+      "source": "https://www.youtube.com/channel/UC5i_ZtbmypvGrxIYh4tXbBg/shorts",
+      "about": "https://www.youtube.com/channel/UC5i_ZtbmypvGrxIYh4tXbBg/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 985197
+      },
+      "evidence": {},
+      "hero": {
+        "id": "G22xdynzGEM",
+        "date": "2026-11-14",
+        "views": 985197,
+        "title": "강의실을 멈춘 한국 학생의 한마디",
+        "observed": "2026-11-27"
+      },
+      "extra": [],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCQUSfsaDMkLQUMpBsn10MoA",
+      "name": "K방산 브리핑",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-08-20",
+      "observed": "2026-11-27",
+      "summary": "한국 방산 수출·이라크 조달 해설 소재. 해외 실촬영 반응 아님. 본문 주장과 제작 방식은 미확인.",
+      "source": "https://www.youtube.com/channel/UCQUSfsaDMkLQUMpBsn10MoA/shorts",
+      "about": "https://www.youtube.com/channel/UCQUSfsaDMkLQUMpBsn10MoA/about",
+      "ai": "unknown",
+      "early": {
+        "verified": false,
+        "matchedViews": 208903
+      },
+      "evidence": {},
+      "hero": {
+        "id": "s3yceclqN5M",
+        "date": "2026-09-23",
+        "views": 208903,
+        "title": "8개 포대 산 이라크의 천궁은 불도 켜지 않고 튀어나온다",
+        "observed": "2026-11-27"
+      },
+      "extra": [],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCvZLBKkv9GiN_toCarw3EPg",
+      "name": "23.9시간",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-10-23",
+      "observed": "2026-11-27",
+      "summary": "FNN·TBS 등 인용 화면과 일본 영상 출처를 적은 편집·해설. 공개 조회수와 별개로 원본 사용권은 미확인.",
+      "source": "https://www.youtube.com/channel/UCvZLBKkv9GiN_toCarw3EPg/shorts",
+      "about": "https://www.youtube.com/channel/UCvZLBKkv9GiN_toCarw3EPg/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 1100222
+      },
+      "evidence": {},
+      "hero": {
+        "id": "sj7Ae8k2dyE",
+        "date": "2026-10-23",
+        "views": 1100222,
+        "title": "[일본인반응] 일본 TV가 밝힌 일본인이 한국에 오는 진짜 이유 5가지",
+        "observed": "2026-11-27"
+      },
+      "extra": [],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCgVwEEBqNU7kvzbxPfowbig",
+      "name": "한국은처음이니",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-09-02",
+      "observed": "2026-11-27",
+      "summary": "미국인의 한국 은퇴·생활 소개. 반응의 독립 원출처, 영상 사용권 및 AI 여부는 미확인.",
+      "source": "https://www.youtube.com/channel/UCgVwEEBqNU7kvzbxPfowbig/shorts",
+      "about": "https://www.youtube.com/channel/UCgVwEEBqNU7kvzbxPfowbig/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 466372
+      },
+      "evidence": {},
+      "hero": {
+        "id": "QRDHa6bKXkY",
+        "date": "2026-11-06",
+        "views": 466372,
+        "title": "한국에서 은퇴생활을 하고 있는 미국인의 고백",
+        "observed": "2026-11-27"
+      },
+      "extra": [],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCRT5q0qJn_WZEGiwzmbNMgw",
+      "name": "한국의 위상",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-10-21",
+      "observed": "2026-11-27",
+      "summary": "한국 경제 성장과 문화·콘텐츠 소재. 제목의 비교·인과 주장은 확인되지 않았으며 해외반응 실재와 AI 여부도 미확인.",
+      "source": "https://www.youtube.com/channel/UCRT5q0qJn_WZEGiwzmbNMgw/shorts",
+      "about": "https://www.youtube.com/channel/UCRT5q0qJn_WZEGiwzmbNMgw/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 882233
+      },
+      "evidence": {},
+      "hero": {
+        "id": "gYeaeuD5xH8",
+        "date": "2026-11-12",
+        "views": 882233,
+        "title": "한국 성장을 따라하다 망한 나라 TOP5",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "gX-SqFFhoyQ",
+          "date": "2026-11-02",
+          "views": 371465,
+          "title": "한국에 완전 미쳐버린 나라 6곳",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
     }
   ]
 }
