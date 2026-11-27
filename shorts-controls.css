@@ -108,3 +108,11 @@ body.sw-controls-theme{
  .sw-controls-ready .sw-display-controls{gap:4px 6px}
  .sw-controls-ready #sw-gallery .grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,clamp(104px,26vw,var(--sw-card-width))),1fr))}
 }
+
+/* Preserve the first-screen gallery; match the panel to the dark theme. */
+#sw-compare-panel,#sw-manual-samples{margin:4px 0;padding:4px 7px;background:#171c24;border:1px solid #303847;border-radius:7px;color:#e8eef9;font-size:12px}
+#sw-compare-panel>summary,#sw-manual-samples>summary{font-weight:700;color:#78edf5;cursor:pointer}
+#sw-manual-samples li{margin:3px 0}#sw-manual-samples a,.sc-root a{color:#78edf5}
+#sw-compare-panel .sc-root :is(button,select,input){background:#202733;color:#e8eef9;border-color:#435264;color-scheme:dark}
+#sw-compare-panel .sc-root button[aria-pressed=true]{background:#581f32;color:#fff174;border-color:#ff8496}
+#sw-compare-panel .sc-root button:disabled{background:#1a2029;color:#9ea9b9}
