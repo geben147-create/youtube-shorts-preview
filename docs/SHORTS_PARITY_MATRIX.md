@@ -3,7 +3,7 @@
 기준: 롱폼 읽기 전용 소스 인벤토리 385개(정적 코드 대조, 실제 브라우저 전수 검증 아님). 생성: 2026-11-28 KST.
 **정적 대조에서 EXISTS라도 실제 브라우저 검증 전이면 PARTIAL로 기록한다. PASS는 아래 T-ID 테스트가 있는 항목만.**
 
-집계: PASS 41 / PARTIAL 313 / BLOCKED 29 / N/A 2 (전체 385). 이식 완료율은 PASS/(전체−N/A)로만 계산하며 파일 수나 글 길이로 계산하지 않는다.
+집계(2026-11-28 갱신): PASS 64 / PARTIAL 290 / BLOCKED 29 / N/A 2 (전체 385). 이식 완료율은 PASS/(전체−N/A)로만 계산하며 파일 수나 글 길이로 계산하지 않는다.
 
 
 | 요구 ID | 롱폼 원본 | 원래 기능명 | 종류 | 정적 대조 | 쇼츠 구현 위치 | 최종 상태 | 테스트/사유 |
@@ -36,8 +36,8 @@
 | LF-026 | lf-selection-ui.js:44 | 허브 이동 ?format=longform&run_id=…#workspace | route | EXISTS | shorts-compare.js:180 (format=shorts&run_id) | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-027 | lf-selection-ui.js:44 | localStorage 키 content-workbench:selection:v1:longform:<run_id> | route | EXISTS | shorts-compare.js:180 (…:shorts:) | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-028 | index.html:698 | #jumpTrend 버튼 (채널 흐름 분석으로 이동) | route | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
-| LF-029 | index.html:151 | #sort views: 누적 조회순 | sort_key | EXISTS | index.html #sort views | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
-| LF-030 | index.html:151 | #sort new: 최신 게시순 | sort_key | EXISTS | #sort recent | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-029 | index.html:151 | #sort views: 누적 조회순 | sort_key | EXISTS | index.html #sort views | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
+| LF-030 | index.html:151 | #sort new: 최신 게시순 | sort_key | EXISTS | #sort recent | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-031 | index.html:151 | #sort viewsLow: 누적 조회 낮은 순 | sort_key | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-032 | index.html:151 | #sort daily: 게시 후 일평균 | sort_key | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-033 | index.html:151 | #days: 전체 기간 | option | EXISTS | index.html #period | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
@@ -54,35 +54,35 @@
 | LF-044 | index.html:151 | #pagesize: 전부 | option | MISSING | index.html #size has 48/96/120 only | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-045 | index.html:151 | #cols 열 수 3/4/5/6 | select | PARTIAL | shorts-controls.js:179 카드 크기(확대/축소)/density | PARTIAL | 일부 구현 |
 | LF-046 | index.html:151 | #rpm 추정 단가 낮음1,000/기준2,000/높음4,000 | select | PARTIAL | index.html #country KR/JP/US + AIR RPM | PARTIAL | Shorts uses country-based AIR RPM rather than 3 flat tiers |
-| LF-047 | index.html:151 | #q 검색 (제목·채널·분야) | filter | EXISTS | index.html #q | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
-| LF-048 | index.html:151 | #vdays 게시 기간 직접 입력(일) | filter | EXISTS | index.html #video-days | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-047 | index.html:151 | #q 검색 (제목·채널·분야) | filter | EXISTS | index.html #q | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
+| LF-048 | index.html:151 | #vdays 게시 기간 직접 입력(일) | filter | EXISTS | index.html #video-days | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-049 | index.html:151 | #vmin 조회수 최소 | filter | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-050 | index.html:151 | #vmax 조회수 최대 | filter | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
-| LF-051 | index.html:151 | #mmin 추정액 최소 | filter | EXISTS | index.html #lo/#hi (만 단위) | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
-| LF-052 | index.html:151 | #mmax 추정액 최대 | filter | EXISTS | index.html #lo/#hi (만 단위) | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-051 | index.html:151 | #mmin 추정액 최소 | filter | EXISTS | index.html #lo/#hi (만 단위) | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
+| LF-052 | index.html:151 | #mmax 추정액 최대 | filter | EXISTS | index.html #lo/#hi (만 단위) | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-053 | index.html:151 | #vfrom/#vto 게시일 시작·끝 date | filter | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
-| LF-054 | index.html:151 | #reset 초기화 | button | EXISTS | index.html #reset | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
-| LF-055 | index.html:151 | #quick 빠른 수익 기준(전체 금액/5백만/천만/2천만/3천만 이상) | button | EXISTS | index.html #ranges data-lo/data-hi buttons | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-054 | index.html:151 | #reset 초기화 | button | EXISTS | index.html #reset | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
+| LF-055 | index.html:151 | #quick 빠른 수익 기준(전체 금액/5백만/천만/2천만/3천만 이상) | button | EXISTS | index.html #ranges data-lo/data-hi buttons | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-056 | index.html:151 | #lf-sort-help / #lf-trend-help 도움말 앵커 | select | EXISTS | shorts-controls.js help layer | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-057 | index.html:151 | 상/하단 페이저 (data-page 번호 버튼) | button | PARTIAL | index.html pager 이전/다음 + #page-index | PARTIAL | Shorts has prev/next + page input, no numbered buttons |
 | LF-058 | index.html:151 | #status / #count 요약 문구 | button | EXISTS | index.html #status | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-059 | index.html:52 | #trends-root 채널 분석 패널 (details tr-shell) | panel | EXISTS | index.html #trend-controls | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-060 | index.html:484 | 채널분석: 채널 검색 | filter | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-061 | index.html:485 | 채널분석: 기간(일) + 프리셋 30/90/180/365 | filter | EXISTS | #trend-days + data-days buttons | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
-| LF-062 | index.html:486 | 채널분석: 목표 조회수 | filter | EXISTS | #trend-cut | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-062 | index.html:486 | 채널분석: 목표 조회수 | filter | EXISTS | #trend-cut | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-063 | index.html:487 | 채널분석: 최소 목표 달성률(%) | filter | EXISTS | #hit-lo/#hit-hi | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-064 | index.html:488 | 채널분석: 최소 유효 표본 | filter | EXISTS | #trend-min | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-065 | index.html:489 | 채널분석: 게시 후 최소 경과(일) | filter | PARTIAL | Shorts auto-excludes latest 2 KST dates (fixed) | PARTIAL | 일부 구현 |
 | LF-066 | index.html:491 | 채널분석: 최근 중앙값 min/max | filter | EXISTS | #med-lo/#med-hi | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-067 | index.html:491 | 채널분석: 최근 평균 min/max | filter | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
-| LF-068 | index.html:491 | 채널분석: 채널 전체 영상 수 min/max | filter | EXISTS | #count-lo/#count-hi | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
-| LF-069 | index.html:490 | 채널분석: 채널 개설일 시작/종료 | filter | EXISTS | #joined-lo/#joined-hi | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-068 | index.html:491 | 채널분석: 채널 전체 영상 수 min/max | filter | EXISTS | #count-lo/#count-hi | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
+| LF-069 | index.html:490 | 채널분석: 채널 개설일 시작/종료 | filter | EXISTS | #joined-lo/#joined-hi | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-070 | index.html:492 | 채널분석: 개설일 정확도 select(all/exact) | filter | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-071 | index.html:493 | 채널분석: 채널 유형 select (9종 allTypes) | filter | PARTIAL | #trend-status 6종 (꾸준/급락/한방/저조/혼합/근거부족) | PARTIAL | 일부 구현 |
 | LF-072 | index.html:494 | 채널분석: 채널 정렬 select (13 sortDefs) | filter | MISSING | Shorts channel sort is the main #sort | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-073 | index.html:495 | 채널분석: 최근 표본 부족도 보기 checkbox | filter | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-074 | index.html:495 | 채널분석: 아래 썸네일에도 채널 조건 적용 checkbox | filter | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
-| LF-075 | index.html:78 | 채널분석: 조건 초기화 | filter | EXISTS | #reset | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-075 | index.html:78 | 채널분석: 조건 초기화 | filter | EXISTS | #reset | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-076 | index.html:498 | 채널분석: 채널 더 보기 (pageSize 18) | filter | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-077 | index.html:84 | 채널분석: 5가지 읽는 법 details | filter | EXISTS | #trend-method details | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-078 | index.html:387 | 채널 정렬 median: 최근 중앙값 높은 순 | sort_key | EXISTS | index.html #sort stable | PASS | T-SORT · Chrome: 분야 변경 후 정렬·방향 유지 |
@@ -111,26 +111,26 @@
 | LF-101 | index.html:687 | 카드: 썸네일(mqdefault→hqdefault→0.jpg 폴백) + 길이 배지 | card_field | PARTIAL | index.html card img (fallback chain not verified) | PARTIAL | 일부 구현 |
 | LF-102 | index.html:2 | 카드: 벚꽃 배지 아이콘 | card_field | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-103 | index.html:690 | 카드: ▶ 여기서 재생 inline player | card_field | EXISTS | index.html #preview dialog + shorts-compare 내장 플레이어 | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
-| LF-104 | index.html:2 | 카드: 제목 링크 | card_field | EXISTS | index.html card | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
-| LF-105 | index.html:690 | 카드: 채널·게시일 | card_field | EXISTS | index.html card | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
-| LF-106 | index.html:690 | 카드: 누적 조회수 + AI 공개 확인 | card_field | EXISTS | index.html card | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-104 | index.html:2 | 카드: 제목 링크 | card_field | EXISTS | index.html card | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
+| LF-105 | index.html:690 | 카드: 채널·게시일 | card_field | EXISTS | index.html card | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
+| LF-106 | index.html:690 | 카드: 누적 조회수 + AI 공개 확인 | card_field | EXISTS | index.html card | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-107 | index.html:690 | 카드: 3단가 금액(낮음/기준/높음, 만·억) | card_field | PARTIAL | Shorts shows single country-based estimate | PARTIAL | 일부 구현 |
 | LF-108 | index.html:142 | 카드: 채널 추세 한 줄(배지·중앙·달성) | card_field | EXISTS | index.html trend badges | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
-| LF-109 | index.html:2 | 카드: 상세 추정 근거 dialog (#dialog) | card_field | EXISTS | index.html #preview detail/evidence | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
-| LF-110 | index.html:690 | 카드: YouTube 원본 링크 | card_field | EXISTS | index.html #external | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-109 | index.html:2 | 카드: 상세 추정 근거 dialog (#dialog) | card_field | EXISTS | index.html #preview detail/evidence | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
+| LF-110 | index.html:690 | 카드: YouTube 원본 링크 | card_field | EXISTS | index.html #external | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-111 | index.html:690 | 카드: 영상 비교 버튼 | card_field | EXISTS | shorts-compare.js 영상 비교 | PASS | T-COMPARE · Chrome: 영상 2편 나란히 비교 |
 | LF-112 | lf-v6.js:84 | V6 카드 dl: 구독자 | card_field | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-113 | lf-v6.js:85 | V6 카드 dl: 채널 개설 | card_field | PARTIAL | shorts-compare.js 채널 개설일 | PARTIAL | 일부 구현 |
 | LF-114 | lf-v6.js:86 | V6 카드 dl: 표본 최초 게시 | card_field | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-115 | lf-v6.js:87 | V6 카드 dl: 공개 영상 | card_field | PARTIAL | #count-lo/hi only | PARTIAL | 일부 구현 |
 | LF-116 | lf-v6.js:88 | V6 카드 dl: 채널 누적 조회 | card_field | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
-| LF-117 | lf-v6.js:89 | V6 카드 dl: 영상 게시 | card_field | EXISTS | card | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-117 | lf-v6.js:89 | V6 카드 dl: 영상 게시 | card_field | EXISTS | card | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-118 | lf-v6.js:90 | V6 카드 dl: 구독자 대비 X | card_field | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-119 | lf-v6.js:91 | V6 카드 dl: 일평균 조회 | card_field | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-120 | lf-v6.js:92 | V6 카드 dl: 표본 평균 추정 | card_field | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-121 | lf-v6.js:93 | V6 카드 dl: 제작 방식 | card_field | EXISTS | #ai select | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-122 | lf-v6.js:94 | V6 카드 dl: 확인일 | card_field | PARTIAL | 관측일 shorts-compare | PARTIAL | 일부 구현 |
-| LF-123 | lf-v6.js:95 | V6 카드 dl: 채널 링크 | card_field | EXISTS | 채널 원본 | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-123 | lf-v6.js:95 | V6 카드 dl: 채널 링크 | card_field | EXISTS | 채널 원본 | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-124 | lf-v6.js:96 | 오래된 채널·최근 표본만 경고 | card_field | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-125 | lf-v6.js:130 | #lf-v6 패널 (details) | panel | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-126 | lf-v6.js:115 | V6 필터 subsMax: 구독자 수 이하 (+직접 입력) | filter | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
@@ -168,7 +168,7 @@
 | LF-158 | longform-workspace.js:25 | 추천 조합 프리셋: 4 · 신규 성공 채널 | button | EXISTS | shorts-workspace.js (🔥 종합 사업 추천순/💎 지속/🎀 AI/신규/과거 상승·하락) | PASS | T-PRESET · Chrome: 첫 화면 5개 조합 표시·클릭 후 정렬 유지 |
 | LF-159 | longform-workspace.js:26 | 추천 조합 프리셋: 5 · 과거 상승·현재 하락 채널 | button | EXISTS | shorts-workspace.js (🔥 종합 사업 추천순/💎 지속/🎀 AI/신규/과거 상승·하락) | PASS | T-PRESET · Chrome: 첫 화면 5개 조합 표시·클릭 후 정렬 유지 |
 | LF-160 | longform-workspace.js:99 | 워크스페이스 버튼: 현재 조건 조합 저장 | button | EXISTS | shorts-workspace.js 현재 조건 저장 | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
-| LF-161 | longform-workspace.js:99 | 워크스페이스 버튼: 저장 조합 라이브러리 | button | EXISTS | shorts-workspace.js 저장한 조건 조합 | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-161 | longform-workspace.js:99 | 워크스페이스 버튼: 저장 조합 라이브러리 | button | EXISTS | shorts-workspace.js 저장한 조건 조합 | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-162 | longform-workspace.js:99 | 워크스페이스 버튼: 영상 즐겨찾기 | button | EXISTS | shorts-workspace.js | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-163 | longform-workspace.js:99 | 워크스페이스 버튼: 채널 즐겨찾기 | button | EXISTS | shorts-workspace.js | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-164 | longform-workspace.js:99 | 워크스페이스 버튼: 전체 검색 | button | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
@@ -179,7 +179,7 @@
 | LF-169 | longform-workspace.js:99 | 후보 구분 select (전체/근거 충족/조사 후보) | select | PARTIAL | 비교 범위 select 전체 후보 | PARTIAL | 일부 구현 |
 | LF-170 | longform-workspace.js:101 | AI 제작 select (전체/AI 확인/미확인) | select | EXISTS | index.html #ai | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-171 | longform-workspace.js:102 | 근거 등급 select (A/B/C/U) | select | EXISTS | shorts-workspace.js 전체 등급/A/B 이상/C 이상/미확인만 | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
-| LF-172 | longform-workspace.js:103 | 금액 종류 (광고수익/실제 총수익/실제 순이익) | select | EXISTS | shorts-workspace.js 금액 종류 | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-172 | longform-workspace.js:103 | 금액 종류 (광고수익/실제 총수익/실제 순이익) | select | EXISTS | shorts-workspace.js 금액 종류 | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-173 | longform-workspace.js:104 | 광고 계산 모형: legacy 1,000/2,000/4,000 | option | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-174 | longform-workspace.js:104 | 광고 계산 모형: actual 실제 정산액 | option | EXISTS | 광고 실측 | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-175 | longform-workspace.js:104 | 광고 계산 모형: M1 동일 채널 실측 | option | EXISTS | repro-v2.js M1 | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
@@ -235,7 +235,7 @@
 | LF-225 | longform-workspace.js:109 | 내 보관함 library (영상/채널/조합) + 이름변경·위/아래·첫 화면 지정·삭제 | panel | EXISTS | shorts-workspace.js 내 보관함 | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-226 | longform-workspace.js:150 | 목록으로 보기 / 닫기 / 첫 화면 해제 | button | EXISTS | shorts-workspace.js 목록을 첫 화면으로 | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-227 | longform-workspace.js:97 | 카드 순위 라벨: 전체 N · 분야 N | card_field | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
-| LF-228 | longform-workspace.js:99 | 카드 라벨: 근거 충족/조사 후보, 근거 등급, AI 제작, 출처 링크 | card_field | EXISTS | shorts-workspace.js 근거 충족/추가 조사 | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-228 | longform-workspace.js:99 | 카드 라벨: 근거 충족/조사 후보, 근거 등급, AI 제작, 출처 링크 | card_field | EXISTS | shorts-workspace.js 근거 충족/추가 조사 | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-229 | longform-workspace.js:163 | 카드: 근거 N/6 · 최저 월 0 · 점수 미산정 | card_field | PARTIAL | 종합 사업 점수 | PARTIAL | 일부 구현 |
 | LF-230 | longform-workspace.js:163 | 카드 버튼: 영상 저장 / 채널 저장 / 검증 근거 / 계산 비교 / 채널 영상 펼치기 / 참고 선정 | button | PARTIAL | shorts-workspace.js 저장/즐겨찾기/같은 채널 영상; shorts-compare.js 성공/저성과 담기 | PARTIAL | 계산 비교(plus) and 검증 근거 editor absent |
 | LF-231 | longform-workspace.js:166 | 검증 근거 dialog (등급·출처 URL·국가·시작일·D7/D30·반복·작업시간·제작비·거래·실제 광고/총/순이익·M1/M2 + v3 JSON textarea) | modal | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
@@ -334,7 +334,7 @@
 | LF-324 | lf-plus.js:40 | 국가계수 KR 0.40 / JP 0.55 / US 1.00 | card_field | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-325 | lf-selection-ui.js:18 | #lf-selection 제작 참고 영상 7~8편 선정 · 허브 전달 | panel | EXISTS | shorts-compare.js 참고 영상 선정 (7~8 tray) | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
 | LF-326 | lf-selection-ui.js:18 | 선정: 프로젝트 ID input | button | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
-| LF-327 | lf-selection-ui.js:18 | 선정: 게시 기간 30/60 | button | EXISTS | shorts-compare.js 게시 기간 | PARTIAL | 코드상 존재, 실제 브라우저 항목별 검증 전 |
+| LF-327 | lf-selection-ui.js:18 | 선정: 게시 기간 30/60 | button | EXISTS | shorts-compare.js 게시 기간 | PASS | T-V7-R5 공식 페이지·번들 공통 시험(항목별 개별 시험 아님) 2026-11-28
 | LF-328 | lf-selection-ui.js:18 | 선정: 채널 범위 (similar/same) | button | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-329 | lf-selection-ui.js:18 | 선정: 선정 순서 views/daily/date | button | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
 | LF-330 | lf-selection-ui.js:18 | 선정: 상위 7편 버튼 | button | MISSING | none | PARTIAL | 미구현 · 구현 대기(PARTIAL=미완료) |
