@@ -1529,7 +1529,7 @@
       "genre": "drama",
       "joinDate": "2026-11-08",
       "observed": "2026-11-27",
-      "summary": "핀란드이다 IDA·KING KWESI·LizLaz 등의 원본을 명시한 해외반응 편집. 2차 사용 허락·YPP는 미확인.",
+      "summary": "핀란드이다 IDA·KING KWESI·LizLaz 출처를 명시한 해외반응 편집. IDA 원본은 무단 2차 편집을 금지하며, 이 업로드의 허락 여부와 YPP는 미확인.",
       "source": "https://www.youtube.com/channel/UCzDBs6Fz4DM6xubGJUppkLQ/shorts",
       "about": "https://www.youtube.com/channel/UCzDBs6Fz4DM6xubGJUppkLQ/about",
       "ai": "unknown",
@@ -1794,6 +1794,184 @@
           "observed": "2026-11-27"
         }
       ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UC-X-uztvtavlBIGx88MeIUA",
+      "name": "한국수집가",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-10-07",
+      "observed": "2026-11-27",
+      "summary": "6백만 회 이상 대표작은 미국 LA 한인 식당 감동사연. 제작자 원본과 모금 주최 기록에서 식당 확인. 한국 국내 여행 반응과 다름. 모금액은 YouTube 수익이 아니며 2차 사용권은 미확인.",
+      "source": "https://www.youtube.com/channel/UC-X-uztvtavlBIGx88MeIUA/shorts",
+      "about": "https://www.youtube.com/channel/UC-X-uztvtavlBIGx88MeIUA/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 6399128
+      },
+      "evidence": {},
+      "hero": {
+        "id": "3pnM4_wU87E",
+        "date": "2026-11-20",
+        "views": 6399128,
+        "title": "빚 14억에도 공짜 밥 준 한국 사장님에게 생긴 기적",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "Uim9ms8hx5M",
+          "date": "2026-11-03",
+          "views": 3191968,
+          "title": "망해가던 한국 반찬가게 살려준 미국 틱톡커🇰🇷🇺🇸",
+          "observed": "2026-11-27"
+        },
+        {
+          "id": "7VvSVebfAFc",
+          "date": "2026-11-05",
+          "views": 1787664,
+          "title": "손님 없던 한국 치킨집 완판시킨 호주 틱톡커🇰🇷🇦🇺",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCka_g1QBQiiSggJ3kHrZjuQ",
+      "name": "세계의중심한국",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-11-05",
+      "observed": "2026-11-27",
+      "summary": "치안·교통·배송 등 한국의 일상 시스템 해설. 제목에 등장하는 외국인 직접 반응 출처와 AI 여부는 미확인.",
+      "source": "https://www.youtube.com/channel/UCka_g1QBQiiSggJ3kHrZjuQ/shorts",
+      "about": "https://www.youtube.com/channel/UCka_g1QBQiiSggJ3kHrZjuQ/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 453735
+      },
+      "evidence": {},
+      "hero": {
+        "id": "xnR4byA355w",
+        "date": "2026-11-10",
+        "views": 453735,
+        "title": "정작 한국인만 불경기라는데 외국인은 한국 오자마자 엄청난 부자 나라라고 놀라는 이유 5가지",
+        "observed": "2026-11-27"
+      },
+      "extra": [],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UC_RyRqj3wkQt93XOZgkQNzg",
+      "name": "외국인들 난리남",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-11-20",
+      "observed": "2026-11-27",
+      "summary": "영국남자 원본을 표기한 영국인 아버지의 삼겹살 반응 편집. 재사용 허락 및 YPP 미확인.",
+      "source": "https://www.youtube.com/channel/UC_RyRqj3wkQt93XOZgkQNzg/shorts",
+      "about": "https://www.youtube.com/channel/UC_RyRqj3wkQt93XOZgkQNzg/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 91879
+      },
+      "evidence": {},
+      "hero": {
+        "id": "0IHP63ynIeg",
+        "date": "2026-11-21",
+        "views": 91879,
+        "title": "바빠서 한국 올 일 없던 영국 아빠, 아들과 먹은 첫 한국 삼겹살에 한 말",
+        "observed": "2026-11-27"
+      },
+      "extra": [],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCN-26qvtZdUHc5dEzUVTUfg",
+      "name": "코리아찐반응",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-10-18",
+      "observed": "2026-11-27",
+      "summary": "한글 키보드와 겨울 인프라를 소재로 한 해외반응 클립. 원본 권리와 정산은 미확인.",
+      "source": "https://www.youtube.com/channel/UCN-26qvtZdUHc5dEzUVTUfg/shorts",
+      "about": "https://www.youtube.com/channel/UCN-26qvtZdUHc5dEzUVTUfg/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 152012
+      },
+      "evidence": {},
+      "hero": {
+        "id": "c0kkWVJuD9Y",
+        "date": "2026-11-21",
+        "views": 152012,
+        "title": "해외에서 화제가 된 한국 한글 키보드",
+        "observed": "2026-11-27"
+      },
+      "extra": [
+        {
+          "id": "nl7l42CTWBg",
+          "date": "2026-11-19",
+          "views": 90801,
+          "title": "해외에서 화제가 된 한국 눈 치우는 법",
+          "observed": "2026-11-27"
+        }
+      ],
+      "tags": [
+        "국뽕",
+        "한국 자부심",
+        "해외반응",
+        "신생"
+      ]
+    },
+    {
+      "id": "UCORLkHeTj1iZCWQiVoKNTaA",
+      "name": "코레오레오",
+      "topic": "한국 자부심·해외반응",
+      "genre": "drama",
+      "joinDate": "2026-11-02",
+      "observed": "2026-11-27",
+      "summary": "한국 일상 물건 리스트형 해설. 제목에 표현된 해외반응 실재·AI 여부 미확인.",
+      "source": "https://www.youtube.com/channel/UCORLkHeTj1iZCWQiVoKNTaA/shorts",
+      "about": "https://www.youtube.com/channel/UCORLkHeTj1iZCWQiVoKNTaA/about",
+      "ai": "unknown",
+      "early": {
+        "verified": true,
+        "matchedViews": 401770
+      },
+      "evidence": {},
+      "hero": {
+        "id": "SNoSDpznArw",
+        "date": "2026-11-07",
+        "views": 401770,
+        "title": "외국인들이 놀란 한국 일상 물건 10가지",
+        "observed": "2026-11-27"
+      },
+      "extra": [],
       "tags": [
         "국뽕",
         "한국 자부심",
