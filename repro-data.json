@@ -1,0 +1,963 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-11-27",
+  "description": "Shorts 재현성 연구. cohort 스키마: snapshot 또는 24h/7d/30d에 observed/start/end/partial 및 videos 배열 [YouTube Shorts ID, KST 게시일, 해당 시점 공개 조회수]. videos는 관측 cohort별 중복 금지. 실제 시간대 기록 없으면 24h/7d/30d를 추가하지 않음. early.verified는 채널 개설 직후 90일 안에 성과를 직접 관측했거나 첫 업로드/포맷 시작일과 해당 기간 실측 근거가 함께 확인될 때만 true; 현재 공개 목록의 가장 오래된 Short는 oldestVisible로 구분한다. 후보 점수 evidence.points는 근거로 7개 항목을 검토한 값만(키 independent/repeat/entry/stability/process/profit/rights), rightsStatus ok/block; 미확인 시 없음.",
+  "records": [
+    {
+      "id": "hoon",
+      "name": "훈작가의 숏드라마",
+      "joinDate": "2026-03-16",
+      "topic": "AI 시니어 드라마",
+      "genre": "drama",
+      "summary": "반복 흥행 상위 기준. 채널 개설 후 첫 달 성적과 정산은 별개로 미확인.",
+      "observed": "2026-11-27",
+      "early": {
+        "verified": false
+      },
+      "evidence": {},
+      "ai": "yes",
+      "source": "https://www.youtube.com/@hoonjakga/shorts",
+      "cohorts": {
+        "snapshot": {
+          "observed": "2026-11-27",
+          "start": "2026-10-29",
+          "end": "2026-11-20",
+          "partial": false,
+          "videos": [
+            [
+              "C-3i12OYAnM",
+              "2026-11-20",
+              1474241
+            ],
+            [
+              "xN-1US8FGoQ",
+              "2026-11-19",
+              162519
+            ],
+            [
+              "ex7I3MuW65c",
+              "2026-11-18",
+              1057293
+            ],
+            [
+              "pHnTNkc1Imc",
+              "2026-11-17",
+              3169985
+            ],
+            [
+              "EotpYI19Hc8",
+              "2026-11-16",
+              1529718
+            ],
+            [
+              "Xld7mXiR0RQ",
+              "2026-11-15",
+              850325
+            ],
+            [
+              "JAWGS5fSrvU",
+              "2026-11-14",
+              1712346
+            ],
+            [
+              "IO1LhWqcwEM",
+              "2026-11-13",
+              750352
+            ],
+            [
+              "bLAX9NfVD1I",
+              "2026-11-12",
+              1134510
+            ],
+            [
+              "FNFX76g7J2I",
+              "2026-11-11",
+              351415
+            ],
+            [
+              "b1VXMriev_g",
+              "2026-11-10",
+              1906589
+            ],
+            [
+              "fib4P4uCylI",
+              "2026-11-09",
+              110173
+            ],
+            [
+              "1aK1Mm4WyVg",
+              "2026-11-08",
+              2078687
+            ],
+            [
+              "umxLpLQsiwo",
+              "2026-11-06",
+              1791684
+            ],
+            [
+              "MjieDVvkK_Y",
+              "2026-11-05",
+              2955333
+            ],
+            [
+              "K1kTCV0UOcg",
+              "2026-11-04",
+              2017478
+            ],
+            [
+              "LSDwajuVMwU",
+              "2026-11-03",
+              1056360
+            ],
+            [
+              "bN-uo0GgAn0",
+              "2026-11-02",
+              75196
+            ],
+            [
+              "l_bPnNnPYMw",
+              "2026-11-01",
+              692602
+            ],
+            [
+              "m6p4gJp5A_A",
+              "2026-10-31",
+              162310
+            ],
+            [
+              "ciXq9yL7YEI",
+              "2026-10-30",
+              1755170
+            ],
+            [
+              "XjNzehZCb24",
+              "2026-10-29",
+              1208290
+            ]
+          ]
+        }
+      },
+      "hero": {
+        "id": "_EuBTWA7ahY",
+        "title": "결혼식 날 며느리가 시어머니에게 한 귓속말",
+        "date": "2026-10-09",
+        "views": 8393958,
+        "observed": "2026-11-27"
+      },
+      "tags": [
+        "가족",
+        "반전",
+        "회상"
+      ]
+    },
+    {
+      "id": "hong",
+      "name": "홍감독의 안방극장",
+      "joinDate": "2026-10-16",
+      "topic": "AI 시니어 드라마",
+      "genre": "drama",
+      "summary": "AI 창작 드라마 확인. 신규 개설과 공통 기간 연속 성적은 확인했으나 첫 공개일·유입은 미확인.",
+      "observed": "2026-11-27",
+      "early": {
+        "verified": false
+      },
+      "evidence": {},
+      "ai": "yes",
+      "source": "https://www.youtube.com/channel/UCUO8PqCpxdeDEcmaF3Qt1wA/shorts",
+      "cohorts": {
+        "snapshot": {
+          "observed": "2026-11-27",
+          "start": "2026-10-29",
+          "end": "2026-11-20",
+          "partial": false,
+          "videos": [
+            [
+              "XpNyJqaYMlQ",
+              "2026-11-20",
+              135539
+            ],
+            [
+              "P54xXgE9rN4",
+              "2026-11-19",
+              81287
+            ],
+            [
+              "-tNL4JWxDTs",
+              "2026-11-18",
+              692437
+            ],
+            [
+              "6HS-L42KLYM",
+              "2026-11-17",
+              46583
+            ],
+            [
+              "w8siO_FV2Rg",
+              "2026-11-16",
+              206748
+            ],
+            [
+              "MEQNZMpbNnE",
+              "2026-11-15",
+              207138
+            ],
+            [
+              "EsYy3Ix7DCY",
+              "2026-11-14",
+              254454
+            ],
+            [
+              "ACpzX7E7WYo",
+              "2026-11-13",
+              15003
+            ],
+            [
+              "DeE94-X-19s",
+              "2026-11-12",
+              30895
+            ],
+            [
+              "gB03XN6YQQQ",
+              "2026-11-11",
+              70374
+            ],
+            [
+              "uWUhsP9gVYU",
+              "2026-11-10",
+              287083
+            ],
+            [
+              "_p7Wfxe9IGc",
+              "2026-11-09",
+              1464525
+            ],
+            [
+              "M0yc2ry38CI",
+              "2026-11-08",
+              242978
+            ],
+            [
+              "YlPIaujzmNs",
+              "2026-11-07",
+              55647
+            ],
+            [
+              "FOoOActCOSg",
+              "2026-11-06",
+              356715
+            ],
+            [
+              "cbhEtO1_YRY",
+              "2026-11-05",
+              29425
+            ],
+            [
+              "SN0xG4bCd7Q",
+              "2026-11-04",
+              177789
+            ],
+            [
+              "7Xu49LPSVxc",
+              "2026-11-03",
+              954564
+            ],
+            [
+              "fSMVdz_XPJg",
+              "2026-11-02",
+              435072
+            ],
+            [
+              "7yeqdso3i9Q",
+              "2026-11-01",
+              391933
+            ],
+            [
+              "0S5CzQFn7QQ",
+              "2026-10-31",
+              12238
+            ],
+            [
+              "4bONFwFZy0M",
+              "2026-10-30",
+              3190738
+            ],
+            [
+              "a-Caw_k4Sm0",
+              "2026-10-29",
+              779126
+            ]
+          ]
+        }
+      },
+      "hero": {
+        "id": "4bONFwFZy0M",
+        "title": "김장 마당에서 쫓겨날 뻔한 예비 며느리",
+        "date": "2026-10-30",
+        "views": 3190738,
+        "observed": "2026-11-27"
+      },
+      "tags": [
+        "가족",
+        "이웃",
+        "신규"
+      ]
+    },
+    {
+      "id": "park",
+      "name": "박작가의 숏드라마",
+      "joinDate": "2026-10-10",
+      "topic": "AI 시니어 드라마",
+      "genre": "drama",
+      "summary": "AI 표기 확인. 비교 기간 원본 수치에 누락이 있어 완전 표본 순위에서 제외.",
+      "observed": "2026-11-27",
+      "early": {
+        "verified": false
+      },
+      "evidence": {},
+      "ai": "yes",
+      "source": "https://www.youtube.com/channel/UCxxjUyTTMX-hciRrmFzHE8Q/shorts",
+      "cohorts": {
+        "snapshot": {
+          "observed": "2026-11-27",
+          "start": "2026-10-29",
+          "end": "2026-11-20",
+          "partial": true,
+          "videos": [
+            [
+              "IEWDs6voRtQ",
+              "2026-11-20",
+              206722
+            ],
+            [
+              "C5SG8hYtJ0s",
+              "2026-11-19",
+              874504
+            ],
+            [
+              "Iunt-0LDwCM",
+              "2026-11-19",
+              537203
+            ],
+            [
+              "yROhxRSyIBs",
+              "2026-11-18",
+              110381
+            ],
+            [
+              "ILycNxCBSS0",
+              "2026-11-17",
+              340707
+            ],
+            [
+              "7OSxZq90mLk",
+              "2026-11-14",
+              3322746
+            ],
+            [
+              "Y51RkoVJoxU",
+              "2026-11-13",
+              449394
+            ],
+            [
+              "V6QVgee6dSc",
+              "2026-11-12",
+              1237074
+            ],
+            [
+              "W0TWL-I9D-E",
+              "2026-11-11",
+              133040
+            ],
+            [
+              "YxA9ETvwfx8",
+              "2026-11-10",
+              648804
+            ],
+            [
+              "Bh-GJfeNZZA",
+              "2026-11-06",
+              32088
+            ],
+            [
+              "zfZEUH_f4p8",
+              "2026-11-05",
+              35367
+            ],
+            [
+              "8nnFe-BBjhE",
+              "2026-11-05",
+              67179
+            ],
+            [
+              "QY994q0F1U4",
+              "2026-11-04",
+              64994
+            ],
+            [
+              "C5-g2hZ9XQY",
+              "2026-11-02",
+              1277243
+            ]
+          ]
+        }
+      },
+      "hero": {
+        "id": "7OSxZq90mLk",
+        "title": "층간소음으로 찾아온 할머니를 내쫓은 엄마",
+        "date": "2026-11-14",
+        "views": 3322746,
+        "observed": "2026-11-27"
+      },
+      "tags": [
+        "이웃",
+        "반전",
+        "신규"
+      ]
+    },
+    {
+      "id": "life",
+      "name": "빛나는 인생 드라마",
+      "joinDate": "2026-09-15",
+      "topic": "AI 시니어 드라마",
+      "genre": "drama",
+      "summary": "같은 포맷의 대조군. 200만 회 이상 히트가 있어도 대표작과 평소 조회수가 크게 다름.",
+      "observed": "2026-11-27",
+      "early": {
+        "verified": false
+      },
+      "evidence": {},
+      "ai": "yes",
+      "source": "https://www.youtube.com/channel/UCHWeZLlZBnAbqocrJK0akfA/shorts",
+      "cohorts": {
+        "snapshot": {
+          "observed": "2026-11-27",
+          "start": "2026-10-29",
+          "end": "2026-11-20",
+          "partial": false,
+          "videos": [
+            [
+              "y9YNbz_LFA8",
+              "2026-11-20",
+              3384
+            ],
+            [
+              "FUMJs6T4vuE",
+              "2026-11-20",
+              8731
+            ],
+            [
+              "ypZ3SKwHNng",
+              "2026-11-19",
+              56330
+            ],
+            [
+              "hjTWzvtUMYQ",
+              "2026-11-19",
+              17950
+            ],
+            [
+              "y_dFph4UKQ8",
+              "2026-11-18",
+              44799
+            ],
+            [
+              "-JX-yUGWXTI",
+              "2026-11-18",
+              10034
+            ],
+            [
+              "1H0KwRojo9A",
+              "2026-11-17",
+              2841
+            ],
+            [
+              "w0FPoLTW7ds",
+              "2026-11-15",
+              2256
+            ],
+            [
+              "XiY3XJPoOkA",
+              "2026-11-12",
+              2249382
+            ],
+            [
+              "3y5sGbeAj0Y",
+              "2026-11-11",
+              4099
+            ],
+            [
+              "AYvXBsCH2n4",
+              "2026-11-10",
+              18415
+            ],
+            [
+              "J5-YfV26WCk",
+              "2026-11-09",
+              37589
+            ],
+            [
+              "WjVppVnnBXQ",
+              "2026-11-08",
+              16108
+            ],
+            [
+              "WIPDFAG2Fh0",
+              "2026-11-07",
+              6019
+            ],
+            [
+              "xdcufMpAwPE",
+              "2026-11-06",
+              2359
+            ],
+            [
+              "1MU8gtjN5WA",
+              "2026-11-04",
+              14709
+            ],
+            [
+              "zDpCzzdWsGo",
+              "2026-11-03",
+              2603
+            ],
+            [
+              "C7NxdxacdKY",
+              "2026-11-02",
+              3138
+            ],
+            [
+              "LqvY_E7g7iQ",
+              "2026-10-31",
+              16407
+            ],
+            [
+              "3PR1LDVLCes",
+              "2026-10-31",
+              19231
+            ],
+            [
+              "g5_dGsYCv2k",
+              "2026-10-30",
+              129821
+            ],
+            [
+              "6uW6oMJIIRI",
+              "2026-10-30",
+              1887
+            ],
+            [
+              "ZeZtW0Gbkjs",
+              "2026-10-29",
+              52191
+            ]
+          ]
+        }
+      },
+      "hero": {
+        "id": "XiY3XJPoOkA",
+        "title": "결혼식 날 혼주석에서 밀려난 아버지, 검사 아들의 선택 #60대인생 #시니어드라마 #결혼식",
+        "date": "2026-11-12",
+        "views": 2249382,
+        "observed": "2026-11-27"
+      },
+      "tags": [
+        "가족",
+        "회상",
+        "대조군"
+      ]
+    },
+    {
+      "id": "ohn",
+      "name": "온작가의 인생극장",
+      "joinDate": "2026-10-15",
+      "topic": "AI 시니어 드라마",
+      "genre": "drama",
+      "summary": "AI 활용 창작 드라마 명시. 개설 후 43일 이내 대표작 220.2만 회 관측. 연속 표본·첫 업로드의 완전성·기존 팬덤은 미확인.",
+      "observed": "2026-11-27",
+      "early": {
+        "verified": true,
+        "oldestVisible": "2026-10-30",
+        "firstPublicConfirmed": false,
+        "matchedViews": 2202237,
+        "source": "https://www.youtube.com/shorts/2buq3HNokwQ",
+        "note": "현재 공개 목록에서 가장 오래된 Shorts는 10/30(9,138회). 채널 개설 후 43일 이내 대표작 220.2만 회가 관측됨. 정확한 게시 7일 실적이나 개설 전 팬덤은 확인되지 않음."
+      },
+      "evidence": {},
+      "ai": "yes",
+      "source": "https://www.youtube.com/channel/UC-LajXQHadyrn4WgsiTrA9g/shorts",
+      "tags": [
+        "신규",
+        "가족"
+      ],
+      "hero": {
+        "id": "fmCaoZwkytw",
+        "title": "생선가게 엄마를 무시한 시부모… 신부가 마이크를 잡자",
+        "date": "2026-11-10",
+        "views": 2202237,
+        "observed": "2026-11-27"
+      }
+    },
+    {
+      "id": "kim",
+      "name": "정서불안 김햄찌",
+      "joinDate": "2021-01-16",
+      "topic": "AI 동물·캐릭터",
+      "genre": "animal",
+      "summary": "오리지널 캐릭터·직장인 공감. 스포티파이 협업 표기 확인, 협찬 금액과 광고 정산은 미확인.",
+      "observed": "2026-11-27",
+      "early": {
+        "verified": false
+      },
+      "evidence": {},
+      "ai": "yes",
+      "source": "https://www.youtube.com/channel/UCU5Bngb-griCg_96ZXpXOgg/shorts",
+      "cohorts": {
+        "snapshot": {
+          "observed": "2026-11-27",
+          "start": "2026-10-29",
+          "end": "2026-11-20",
+          "partial": false,
+          "videos": [
+            [
+              "KwsKfnqzvyk",
+              "2026-11-18",
+              1109990
+            ],
+            [
+              "YNYQ6dSvEWk",
+              "2026-11-16",
+              728680
+            ],
+            [
+              "AsU5_30c64E",
+              "2026-11-06",
+              1250461
+            ],
+            [
+              "JAZ00cV0zaE",
+              "2026-11-03",
+              867363
+            ]
+          ]
+        }
+      },
+      "hero": {
+        "id": "egRjAbOp2C4",
+        "title": "인생사 새옹지마",
+        "date": "2026-06-30",
+        "views": 12777467,
+        "observed": "2026-11-27"
+      },
+      "tags": [
+        "햄스터",
+        "직장인",
+        "협찬",
+        "스포티파이"
+      ]
+    },
+    {
+      "id": "aiham",
+      "name": "AI햄스터",
+      "joinDate": "2021-12-29",
+      "topic": "AI 동물·캐릭터",
+      "genre": "animal",
+      "summary": "채널이 AI 제작을 명시. 대표 저성과 표본 290회, 가장 오래된 공개 Shorts는 12,436회. 연속 성과는 미확인.",
+      "observed": "2026-11-27",
+      "early": {
+        "verified": false,
+        "oldestVisible": "2024-02-10",
+        "source": "https://www.youtube.com/shorts/f6k5wrDvydA"
+      },
+      "evidence": {},
+      "ai": "yes",
+      "source": "https://www.youtube.com/@aihaemster/shorts",
+      "tags": [
+        "햄스터",
+        "대조군"
+      ],
+      "hero": {
+        "id": "WJKkrHBOr1c",
+        "title": "빵순이 햄찌",
+        "date": "2024-05-03",
+        "views": 290,
+        "observed": "2026-11-27"
+      }
+    },
+    {
+      "id": "tiny",
+      "name": "Tiny Little Chaos",
+      "joinDate": "2026-11-02",
+      "topic": "AI 동물·캐릭터",
+      "genre": "animal",
+      "summary": "신규 채널에서 다수의 AI 동물 영상이 확인됩니다. 캐릭터·연속 표본·조회 분산을 따로 비교.",
+      "observed": "2026-11-27",
+      "early": {
+        "verified": false
+      },
+      "evidence": {},
+      "ai": "yes",
+      "source": "https://www.youtube.com/channel/UCTQGUFadOim6Sg8Wxwb4rzQ/shorts",
+      "cohorts": {
+        "snapshot": {
+          "observed": "2026-11-27",
+          "start": "2026-10-29",
+          "end": "2026-11-20",
+          "partial": false,
+          "videos": [
+            [
+              "WP_DofNkfp0",
+              "2026-11-20",
+              82524
+            ],
+            [
+              "s9ukrnyrfHQ",
+              "2026-11-20",
+              98161
+            ],
+            [
+              "cte8TbHjOds",
+              "2026-11-19",
+              67365
+            ],
+            [
+              "ECjBSJDQPM0",
+              "2026-11-19",
+              74717
+            ],
+            [
+              "S8kYCHPzCTk",
+              "2026-11-18",
+              117060
+            ],
+            [
+              "AsWtxbGIByU",
+              "2026-11-18",
+              93757
+            ],
+            [
+              "A-lHSZbwv7A",
+              "2026-11-18",
+              606857
+            ],
+            [
+              "h8cCRx5koZY",
+              "2026-11-17",
+              87741
+            ],
+            [
+              "nHAV_Huu1gE",
+              "2026-11-15",
+              85712
+            ],
+            [
+              "awFSu77TW8U",
+              "2026-11-14",
+              175965
+            ],
+            [
+              "uYYY6D7fe7I",
+              "2026-11-14",
+              129378
+            ],
+            [
+              "suSQSfOh6gM",
+              "2026-11-13",
+              189579
+            ],
+            [
+              "VvKXNh99jKg",
+              "2026-11-12",
+              160086
+            ],
+            [
+              "o4gnG-asMKE",
+              "2026-11-12",
+              148630
+            ],
+            [
+              "Hw7PWipnY5g",
+              "2026-11-10",
+              1647008
+            ],
+            [
+              "gDkRyUQ67Ok",
+              "2026-11-10",
+              215283
+            ],
+            [
+              "lCW5Oc-BmZk",
+              "2026-11-09",
+              1271490
+            ],
+            [
+              "f0uz9B6EL3g",
+              "2026-11-09",
+              20820040
+            ],
+            [
+              "P2OKgZ4RTRI",
+              "2026-11-08",
+              246468
+            ],
+            [
+              "NVhxFUgelcY",
+              "2026-11-07",
+              322225
+            ],
+            [
+              "mACJ3zFx0-Y",
+              "2026-11-07",
+              261709
+            ],
+            [
+              "erGsU_2rHGs",
+              "2026-11-06",
+              295707
+            ],
+            [
+              "aCKGFZwEIMg",
+              "2026-11-05",
+              324377
+            ],
+            [
+              "ZsCLTsFU7UQ",
+              "2026-11-04",
+              447198847
+            ],
+            [
+              "B7I95I2mYE4",
+              "2026-11-04",
+              293622
+            ],
+            [
+              "GxUzIV9g9tY",
+              "2026-11-02",
+              48930804
+            ],
+            [
+              "tAoG-NmZiyQ",
+              "2026-11-02",
+              301053
+            ]
+          ]
+        }
+      },
+      "hero": {
+        "id": "ZsCLTsFU7UQ",
+        "title": "one sweet kiss, and the funniest surprise! 🥹😂 This golden lady moment is pure happiness! 💛",
+        "date": "2026-11-04",
+        "views": 441254391,
+        "observed": "2026-11-27"
+      },
+      "tags": [
+        "동물",
+        "신규"
+      ]
+    },
+    {
+      "id": "japan",
+      "name": "Japan Untold",
+      "joinDate": null,
+      "topic": "AI 일본 소개",
+      "genre": "education",
+      "summary": "미국 가정 AIR 500만 문턱을 넘긴 대표작. 실촬영 POV가 아니며 동일 포맷 재현 여부는 미확인.",
+      "observed": "2026-11-27",
+      "early": {
+        "verified": false
+      },
+      "evidence": {},
+      "ai": "yes",
+      "source": "https://www.youtube.com/shorts/IR3ZWc0XDzE",
+      "hero": {
+        "id": "IR3ZWc0XDzE",
+        "title": "Japan Untold 일본 소개",
+        "date": "2026-11-06",
+        "views": 23694556,
+        "observed": "2026-11-27"
+      },
+      "tags": [
+        "일본",
+        "역사",
+        "AI 소개"
+      ]
+    },
+    {
+      "id": "etf",
+      "name": "Steve의 ETF",
+      "joinDate": null,
+      "topic": "투자·금융",
+      "genre": "education",
+      "summary": "ETF 조사 표본의 대표작. 게시 첫 달 실적 아님. M3는 교육 분야 가정이며 증권 협찬·제휴는 포함하지 않음.",
+      "observed": "2026-11-27",
+      "early": {
+        "verified": false
+      },
+      "evidence": {},
+      "source": "https://www.youtube.com/shorts/uME3j-dATGA",
+      "hero": {
+        "id": "uME3j-dATGA",
+        "title": "Steve의 ETF 쇼츠",
+        "date": "2025-02-13",
+        "views": 2779103,
+        "observed": "2026-11-27"
+      },
+      "tags": [
+        "투자",
+        "ETF",
+        "경제"
+      ]
+    },
+    {
+      "id": "-4mnjUwwodw",
+      "name": "今日のAIにゃんこ公式",
+      "topic": "AI 동물·캐릭터",
+      "genre": "animal",
+      "observed": "2026-11-27",
+      "ai": "yes",
+      "summary": "일본어 AI 고양이 비교용 원본. 대표 관측 영상 한 편이며 채널 연속 자료·초기 90일 성과는 미확인.",
+      "source": "https://www.youtube.com/shorts/-4mnjUwwodw",
+      "hero": {
+        "id": "-4mnjUwwodw",
+        "title": "【圧倒的敗北🐾】「めぇ〜」と鳴いてみたにゃんこたち、本物のひつじによる本気メェ〜で即論破されて草ww 🐑🐈 #コスプレ",
+        "date": "2026-11-07",
+        "views": 66,
+        "observed": "2026-11-27"
+      },
+      "early": {
+        "verified": false
+      },
+      "evidence": {},
+      "tags": [
+        "고양이",
+        "일본",
+        "대조군"
+      ]
+    },
+    {
+      "id": "MmYdcDA-W9s",
+      "name": "AI猫にゃんこちん Official",
+      "topic": "AI 동물·캐릭터",
+      "genre": "animal",
+      "observed": "2026-11-27",
+      "ai": "yes",
+      "summary": "일본어 AI 고양이 비교용 원본. 대표 관측 영상 한 편이며 채널 연속 자료·초기 90일 성과는 미확인.",
+      "source": "https://www.youtube.com/shorts/MmYdcDA-W9s",
+      "hero": {
+        "id": "MmYdcDA-W9s",
+        "title": "お布団を洗いに行っただけなのに…！🐾#にゃんこちん #AI猫 #コインランドリー #猫動画 #Shorts",
+        "date": "2026-11-14",
+        "views": 102759,
+        "observed": "2026-11-27"
+      },
+      "early": {
+        "verified": false
+      },
+      "evidence": {},
+      "tags": [
+        "고양이",
+        "일본",
+        "대조군"
+      ]
+    }
+  ]
+}
