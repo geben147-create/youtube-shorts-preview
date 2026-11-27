@@ -54,21 +54,35 @@ function tip(el,key,label){
  return el;
 }
 function annotate(el){return tip(el,el.dataset.swTip,el.dataset.swTipLabel);}
+const SCHEMA='shorts-rail-menu',VERSION=2,HEX=/^#[0-9a-f]{6}$/i;
+const PALETTE=['#581F32','#103F32','#35234E','#17354E','#FFF174','#B9F665','#78EDF5','#FF879F','#D1B6FC','#FFCA90','#C3C9D4','#24374B'];
+function normalizeMenu(src){
+ const m={order:[],aliases:Object.create(null),colors:Object.create(null),hidden:[]};src=src&&typeof src==='object'?src:{};
+ if(Array.isArray(src.order))for(const id of src.order)if(typeof id==='string'&&!m.order.includes(id)&&m.order.length<100)m.order.push(id);
+ if(src.aliases&&typeof src.aliases==='object')for(const [k,v] of Object.entries(src.aliases))if(typeof v==='string'&&v.trim())m.aliases[k]=v.trim().slice(0,80);
+ if(src.colors&&typeof src.colors==='object')for(const [k,v] of Object.entries(src.colors))if(typeof v==='string'&&HEX.test(v))m.colors[k]=v.toUpperCase();
+ if(Array.isArray(src.hidden))for(const id of src.hidden)if(typeof id==='string'&&!m.hidden.includes(id))m.hidden.push(id);
+ return m;
+}
+const cloneMenu=m=>normalizeMenu({order:m.order,aliases:m.aliases,colors:m.colors,hidden:m.hidden});
+const plainMenu=m=>({order:[...m.order],aliases:{...m.aliases},colors:{...m.colors},hidden:[...m.hidden]});
+function readableOn(hex){const n=parseInt(hex.slice(1),16),f=c=>{c/=255;return c<=.03928?c/12.92:((c+.055)/1.055)**2.4;};
+ const l=.2126*f(n>>16&255)+.7152*f(n>>8&255)+.0722*f(n&255);return l>.4?'#111317':'#F1F3FA';}
 function read(){
  let x={};try{x=JSON.parse(W.localStorage.getItem(KEY))||{};}catch{}
  const width=Number(x.railWidth),card=Number(x.cardWidth),rate=Number(x.rate);
  return {desktop:x.desktop!==false,mobile:x.mobile===true,railWidth:Number.isFinite(width)?clamp(width,160,430):224,
   thumbnails:x.thumbnails!==false,columns:Number.isInteger(x.columns)&&x.columns>=2&&x.columns<=8?x.columns:0,
   cardWidth:Number.isFinite(card)?clamp(card,104,256):148,rate:Number.isFinite(rate)?clamp(rate,.7,1.4):1,
-  order:Array.isArray(x.order)?x.order.filter(a=>typeof a==='string').slice(0,100):[],
-  aliases:x.aliases&&typeof x.aliases==='object'?Object.assign(Object.create(null),x.aliases):Object.create(null)};
+  version:VERSION,...normalizeMenu(x)};
 }
 function init({shell,rail,bar,metrics={},beforeLayoutChange,afterLayoutChange}={}){
  if(!shell||!rail||!bar)return null;if(apps.has(shell))return apps.get(shell);
  const state=read(),narrow=W.matchMedia('(max-width: 720px)'),gallery=shell.querySelector('#sw-gallery')||shell;
  const grid=gallery.querySelector('.grid'),nav=rail.querySelector('nav');
  function save(){try{W.localStorage.setItem(KEY,JSON.stringify(state));}catch{}}
- function prefs(){return {...state,order:[...state.order],aliases:{...state.aliases}};}
+ function prefs(){return {...state,order:[...state.order],aliases:{...state.aliases},colors:{...state.colors},hidden:[...state.hidden]};}
+ try{const raw=JSON.parse(W.localStorage.getItem(KEY));if(raw&&typeof raw==='object'&&raw.version!==VERSION)save();}catch{}
  let frame=0,pending=[];
  function start(reason){const context={reason,preferences:prefs()};return {reason,snapshot:beforeLayoutChange?.(context)};}
  function finish(token){
@@ -95,8 +109,7 @@ function init({shell,rail,bar,metrics={},beforeLayoutChange,afterLayoutChange}={
   const text=open?'왼쪽 메뉴 접기':'왼쪽 메뉴 펼치기';toggle.setAttribute('aria-label',text);toggle.title=text;toggle.setAttribute('aria-expanded',String(open));showWidth();
  }
  toggle.addEventListener('click',()=>change('railToggle',()=>{if(narrow.matches)state.mobile=!state.mobile;else state.desktop=!state.desktop;showRail();}));
- edit.addEventListener('click',()=>change('railEdit',()=>{const editing=rail.classList.toggle('sw-rail-editing');edit.textContent=editing?'완료':'편집';edit.setAttribute('aria-pressed',String(editing));}));
- let resize=null;
+  let resize=null;
  grip.addEventListener('pointerdown',e=>{
   if(e.button!==0||!e.isPrimary||resize)return;e.preventDefault();grip.focus();
   resize={id:e.pointerId,x:e.clientX,width:Math.min(state.railWidth,railMax()),previous:state.railWidth,token:null};
@@ -120,44 +133,171 @@ function init({shell,rail,bar,metrics={},beforeLayoutChange,afterLayoutChange}={
  });
 
  const list=new Map(),live=node('p','','sw-controls-visually-hidden');live.setAttribute('aria-live','polite');railBody.append(live);
- let dragged=null,touch=null;const moves=new Map();
- function cleanDrop(){for(const item of list.values())item.row.removeAttribute('data-drop');}
+ let dragged=null,touch=null,editing=false,draft=cloneMenu(state),undo=[],redo=[];const moves=new Map();
+ const snap=()=>JSON.stringify(plainMenu(draft));
+ const tools=node('div',null,'sw-rail-tools'),hiddenBox=node('section',null,'sw-rail-hidden'),hiddenList=node('div',null,'sw-rail-hidden-list');
+ const undoBtn=button('되돌리기','sw-rail-undo'),redoBtn=button('다시 실행','sw-rail-redo'),resetBtn=button('기본값 복원','sw-rail-reset'),
+  exportBtn=button('설정 내보내기','sw-rail-export'),importBtn=button('설정 가져오기','sw-rail-import'),cancelBtn=button('취소','sw-rail-cancel');
+ undoBtn.title='되돌리기 (Ctrl+Z)';redoBtn.title='다시 실행 (Ctrl+Shift+Z)';
+ tools.setAttribute('role','toolbar');tools.setAttribute('aria-label','메뉴 편집 도구');
+ tools.append(undoBtn,redoBtn,resetBtn,exportBtn,importBtn,cancelBtn);
+ const hiddenTitle=node('h3','숨긴 메뉴','sw-rail-hidden-title'),hiddenEmpty=node('p','숨긴 메뉴가 없습니다.','sw-rail-hidden-empty');
+ hiddenBox.append(hiddenTitle,hiddenEmpty,hiddenList);
+ nav?.before(tools);nav?.after(hiddenBox);
  function navRows(){return [...nav.children].filter(row=>row.matches('.sw-rail-row'));}
- function place(from,to,after,restoreFocus=false){
-  if(!from||!to||from===to||from===(after?to.nextElementSibling:to.previousElementSibling))return;
-  change('railOrder',()=>{nav.insertBefore(from,after?to.nextSibling:to);state.order=navRows().map(row=>row.dataset.swNavId);});
-  const item=list.get(from.dataset.swNavId);live.textContent=item.link.textContent+' · '+(navRows().indexOf(from)+1)+'번째';if(restoreFocus)item.handle.focus();
+ function cleanDrop(){for(const item of list.values())item.row.removeAttribute('data-drop');}
+ function nameOf(item){return draft.aliases[item.key]||item.original;}
+ function render(){
+  const active=D.activeElement,known=[...list.keys()],seen=new Set(),order=[];
+  for(const id of draft.order)if(list.has(id)&&!seen.has(id)){seen.add(id);order.push(id);}
+  for(const id of known)if(!seen.has(id))order.push(id);
+  draft.order=order;const hid=new Set(draft.hidden.filter(id=>list.has(id)));
+  for(const id of order){
+   const item=list.get(id),name=nameOf(item),isHidden=hid.has(id);
+   (isHidden?hiddenList:nav).append(item.row);
+   if(item.link.textContent!==name)item.link.textContent=name;
+   item.row.dataset.swHidden=String(isHidden);
+   item.rename.setAttribute('aria-label',name+' 이름 변경 (F2)');item.handle.setAttribute('aria-label',name+' 순서 이동, 위아래 방향키 사용');
+   item.hide.textContent=isHidden?'표시':'숨김';item.hide.setAttribute('aria-label',name+(isHidden?' 다시 표시':' 숨기기'));
+   item.colorBtn.setAttribute('aria-label',name+' 색 선택');
+   const c=draft.colors[id];
+   if(c){item.row.dataset.swColor=c;item.row.style.setProperty('--sw-item-bg',c);item.row.style.setProperty('--sw-item-fg',readableOn(c));item.colorBtn.style.setProperty('--sw-swatch',c);}
+   else{delete item.row.dataset.swColor;item.row.style.removeProperty('--sw-item-bg');item.row.style.removeProperty('--sw-item-fg');item.colorBtn.style.removeProperty('--sw-swatch');}
+   for(const sw of item.palette.querySelectorAll('button[data-color]'))sw.setAttribute('aria-pressed',String((c||'')===sw.dataset.color));
+  }
+  hiddenEmpty.hidden=hid.size>0;hiddenTitle.textContent='숨긴 메뉴'+(hid.size?' ('+hid.size+')':'');
+  undoBtn.disabled=!editing||!undo.length;redoBtn.disabled=!editing||!redo.length;
+  if(active&&active!==D.activeElement&&active.isConnected&&active.focus)active.focus({preventScroll:true});
  }
+ // Every undoable edit goes through here; storage is only written by Save.
+ function mutate(reason,fn){
+  const before=snap(),t=start(reason);fn();
+  if(snap()===before){finish(t);return false;}
+  undo.push(before);if(undo.length>100)undo.shift();redo=[];render();finish(t);return true;
+ }
+ function stepHistory(from,to,reason){
+  if(!editing||!from.length)return;const t=start(reason);to.push(snap());draft=normalizeMenu(JSON.parse(from.pop()));render();finish(t);
+  live.textContent=(reason==='railUndo'?'되돌렸습니다.':'다시 실행했습니다.');
+ }
+ const doUndo=()=>stepHistory(undo,redo,'railUndo'),doRedo=()=>stepHistory(redo,undo,'railRedo');
+ function setEditing(on){
+  editing=on;rail.classList.toggle('sw-rail-editing',on);edit.textContent=on?'저장':'편집';edit.setAttribute('aria-pressed',String(on));
+  edit.setAttribute('aria-label',on?'메뉴 편집 저장':'메뉴 이름과 순서 편집');
+  for(const item of list.values()){item.palette.hidden=true;item.colorBtn.setAttribute('aria-expanded','false');}
+ }
+ function enterEdit(){if(editing)return;change('railEdit',()=>{draft=cloneMenu(state);undo=[];redo=[];setEditing(true);render();});}
+ function leaveEdit(saveIt){
+  if(!editing)return;
+  change(saveIt?'railSave':'railCancel',()=>{
+   if(saveIt){state.order=draft.order.slice(0,100);state.aliases=Object.assign(Object.create(null),draft.aliases);state.colors=Object.assign(Object.create(null),draft.colors);state.hidden=[...draft.hidden];}
+   else draft=cloneMenu(state);
+   undo=[];redo=[];setEditing(false);render();
+  });
+  live.textContent=saveIt?'메뉴 설정을 저장했습니다.':'편집을 취소하고 이전 상태로 되돌렸습니다.';
+  edit.focus({preventScroll:true});
+ }
+ edit.addEventListener('click',()=>editing?leaveEdit(true):enterEdit());
+ cancelBtn.addEventListener('click',()=>leaveEdit(false));
+ undoBtn.addEventListener('click',doUndo);redoBtn.addEventListener('click',doRedo);
+ resetBtn.addEventListener('click',()=>{if(!editing)return;if(mutate('railReset',()=>{draft=normalizeMenu({order:[...list.keys()]});}))live.textContent='기본값으로 복원했습니다. 저장 전에는 취소하거나 되돌릴 수 있습니다.';});
+ function place(from,to,after,restoreFocus=false){
+  if(!editing||!from||!to||from===to||from===(after?to.nextElementSibling:to.previousElementSibling))return;
+  const id=from.dataset.swNavId,tid=to.dataset.swNavId;
+  mutate('railOrder',()=>{const o=draft.order.filter(x=>x!==id),i=o.indexOf(tid);if(i<0)return;o.splice(after?i+1:i,0,id);draft.order=o;});
+  const item=list.get(id);live.textContent=nameOf(item)+' · '+(navRows().indexOf(from)+1)+'번째';if(restoreFocus)item.handle.focus();
+ }
+ function toggleHide(id){
+  const item=list.get(id),isHidden=draft.hidden.includes(id);
+  if(!isHidden&&navRows().length<=1){live.textContent='마지막 메뉴는 숨길 수 없습니다.';return;}
+  mutate('railHide',()=>{draft.hidden=isHidden?draft.hidden.filter(x=>x!==id):[...draft.hidden,id];});
+  live.textContent=nameOf(item)+(isHidden?' · 다시 표시합니다.':' · 숨긴 메뉴로 이동했습니다.');
+ }
+ function setColor(id,color){mutate('railColor',()=>{if(color)draft.colors[id]=color;else delete draft.colors[id];});}
  function editName(item){
   const d=node('dialog',null,'sw-controls-dialog'),form=node('form'),label=node('label','메뉴 이름'),input=node('input');
-  d.setAttribute('aria-label','메뉴 이름 변경');input.type='text';input.maxLength=80;input.required=true;input.value=item.link.textContent;
+  d.setAttribute('aria-label','메뉴 이름 변경');input.type='text';input.maxLength=80;input.required=true;input.value=nameOf(item);
   input.autocomplete='off';label.append(input);const actions=node('div',null,'sw-controls-actions');const submit=node('button','저장');submit.type='submit';
   const reset=button('기본 이름'),cancel=button('취소');actions.append(submit,reset,cancel);form.append(label,actions);d.append(form);D.body.append(d);
-  function apply(name){if(name!==item.link.textContent)change('railRename',()=>{
-   if(name===item.original)delete state.aliases[item.key];else state.aliases[item.key]=name;
-   item.link.textContent=name;item.rename.setAttribute('aria-label',name+' 이름 변경');item.handle.setAttribute('aria-label',name+' 순서 이동, 위아래 방향키 사용');
-   live.textContent=name+' · 이름이 변경되었습니다.';
-  });d.close();}
+  function apply(name){if(name!==nameOf(item)){mutate('railRename',()=>{if(name===item.original)delete draft.aliases[item.key];else draft.aliases[item.key]=name;});live.textContent=name+' · 이름이 변경되었습니다.';}d.close();}
   form.addEventListener('submit',e=>{e.preventDefault();const name=input.value.trim();if(name)apply(name);else input.focus();});
   reset.addEventListener('click',()=>apply(item.original));cancel.addEventListener('click',()=>d.close());
   d.addEventListener('close',()=>{d.remove();item.rename.focus({preventScroll:true});},{once:true});
   d.showModal();input.focus();input.select();
  }
+ // ---- export / import (menu settings only) ----
+ function exportText(){return JSON.stringify({schema:SCHEMA,version:VERSION,menu:plainMenu(draft)},null,2);}
+ function applyImport(text){
+  const keep=' 현재 설정은 그대로입니다.';
+  if(typeof text!=='string'||!text.trim())return {ok:false,error:'가져올 내용이 비어 있습니다.'+keep};
+  if(text.length>300000)return {ok:false,error:'파일이 너무 큽니다.'+keep};
+  let data;try{data=JSON.parse(text);}catch{return {ok:false,error:'JSON을 읽을 수 없습니다. 파일이 손상되었거나 JSON 형식이 아닙니다.'+keep};}
+  if(!data||typeof data!=='object'||Array.isArray(data)||data.schema!==SCHEMA)return {ok:false,error:'이 메뉴 설정 파일이 아닙니다(schema 불일치).'+keep};
+  if(!Number.isInteger(data.version)||data.version<1)return {ok:false,error:'버전 정보가 올바르지 않습니다.'+keep};
+  if(data.version>VERSION)return {ok:false,error:'더 새로운 버전('+data.version+')의 설정이라 가져올 수 없습니다.'+keep};
+  const m=data.menu;if(!m||typeof m!=='object'||Array.isArray(m))return {ok:false,error:'menu 항목이 없습니다.'+keep};
+  if('order' in m&&(!Array.isArray(m.order)||m.order.some(x=>typeof x!=='string')))return {ok:false,error:'order 형식이 올바르지 않습니다.'+keep};
+  if('hidden' in m&&(!Array.isArray(m.hidden)||m.hidden.some(x=>typeof x!=='string')))return {ok:false,error:'hidden 형식이 올바르지 않습니다.'+keep};
+  for(const f of ['aliases','colors'])if(f in m&&(!m[f]||typeof m[f]!=='object'||Array.isArray(m[f])||Object.values(m[f]).some(v=>typeof v!=='string')))return {ok:false,error:f+' 형식이 올바르지 않습니다.'+keep};
+  if('colors' in m&&Object.values(m.colors).some(v=>!HEX.test(v)))return {ok:false,error:'색상은 #RRGGBB 형식이어야 합니다.'+keep};
+  const inc=normalizeMenu(m);let ignored=0;const known=id=>list.has(id);
+  const next=cloneMenu(draft);
+  if('order' in m){ignored+=inc.order.filter(id=>!known(id)).length;const o=inc.order.filter(known);for(const id of draft.order)if(!o.includes(id))o.push(id);for(const id of list.keys())if(!o.includes(id))o.push(id);next.order=o;}
+  if('aliases' in m){next.aliases=Object.create(null);for(const [k,v] of Object.entries(inc.aliases))if(known(k))next.aliases[k]=v;else ignored++;}
+  if('colors' in m){next.colors=Object.create(null);for(const [k,v] of Object.entries(inc.colors))if(known(k))next.colors[k]=v;else ignored++;}
+  if('hidden' in m){ignored+=inc.hidden.filter(id=>!known(id)).length;next.hidden=inc.hidden.filter(known);if(next.order.every(id=>next.hidden.includes(id)))next.hidden.pop();}
+  mutate('railImport',()=>{draft=next;});
+  return {ok:true,ignored};
+ }
+ function dialog(title){
+  const d=node('dialog',null,'sw-controls-dialog sw-menu-dialog'),form=node('form');d.setAttribute('aria-label',title);form.method='dialog';
+  d.append(form);D.body.append(d);d.addEventListener('close',()=>{d.remove();},{once:true});return {d,form};
+ }
+ exportBtn.addEventListener('click',()=>{
+  if(!editing)return;const {d,form}=dialog('설정 내보내기'),label=node('label','메뉴 설정 JSON'),ta=node('textarea');ta.readOnly=true;ta.rows=10;ta.value=exportText();ta.className='sw-menu-json';
+  label.append(ta);const actions=node('div',null,'sw-controls-actions'),copy=button('복사'),file=button('파일로 저장'),close=button('닫기'),msg=node('p',null,'sw-menu-msg');msg.setAttribute('role','status');
+  actions.append(copy,file,close);form.append(label,msg,actions);
+  copy.addEventListener('click',async()=>{try{await W.navigator.clipboard.writeText(ta.value);msg.textContent='복사했습니다.';}catch{ta.select();msg.textContent='자동 복사를 할 수 없습니다. 선택된 내용을 직접 복사하세요(Ctrl+C).';}});
+  file.addEventListener('click',()=>{try{const url=W.URL.createObjectURL(new W.Blob([ta.value],{type:'application/json'})),a=D.createElement('a');a.href=url;a.download='shorts-menu-settings.json';D.body.append(a);a.click();a.remove();W.setTimeout(()=>W.URL.revokeObjectURL(url),1000);msg.textContent='파일로 저장했습니다.';}catch{msg.textContent='파일 저장에 실패했습니다. 복사를 사용하세요.';}});
+  close.addEventListener('click',()=>d.close());d.addEventListener('close',()=>exportBtn.focus({preventScroll:true}),{once:true});d.showModal();ta.focus();ta.select();
+ });
+ importBtn.addEventListener('click',()=>{
+  if(!editing)return;const {d,form}=dialog('설정 가져오기'),label=node('label','메뉴 설정 JSON 붙여넣기'),ta=node('textarea'),fl=node('label','또는 파일 선택'),fi=node('input');
+  ta.rows=10;ta.className='sw-menu-json';fi.type='file';fi.accept='application/json,.json';fl.append(fi);label.append(ta);
+  const err=node('p',null,'sw-menu-msg sw-menu-error');err.setAttribute('role','alert');
+  const actions=node('div',null,'sw-controls-actions'),ok=button('가져오기'),close=button('닫기');actions.append(ok,close);form.append(label,fl,err,actions);
+  fi.addEventListener('change',async()=>{const f=fi.files?.[0];if(!f)return;try{ta.value=await f.text();err.textContent='';}catch{err.textContent='파일을 읽을 수 없습니다.';}});
+  ok.addEventListener('click',()=>{const r=applyImport(ta.value);if(!r.ok){err.textContent=r.error;return;}
+   live.textContent='설정을 가져왔습니다.'+(r.ignored?' 알 수 없는 항목 '+r.ignored+'개는 무시했습니다.':'')+' 저장하면 반영이 확정됩니다.';d.close();});
+  close.addEventListener('click',()=>d.close());d.addEventListener('close',()=>importBtn.focus({preventScroll:true}),{once:true});d.showModal();ta.focus();
+ });
+ D.addEventListener('keydown',e=>{
+  if(!editing||e.defaultPrevented||!(e.ctrlKey||e.metaKey)||e.altKey)return;
+  const k=e.key.toLowerCase();if(k!=='z'&&k!=='y')return;
+  const t=e.target;if(t?.closest?.('input,textarea,select,[contenteditable],dialog[open]'))return;
+  e.preventDefault();if(k==='y'||e.shiftKey)doRedo();else doUndo();
+ });
  if(nav){
   for(const link of nav.querySelectorAll('a[href]')){
    const original=link.textContent.trim(),base=link.dataset.view?'view:'+link.dataset.view:'href:'+link.getAttribute('href');
    const count=(moves.get(base)||0)+1;moves.set(base,count);const key=base+(count>1?'#'+count:'');
-   const row=node('div',null,'sw-rail-row'),handle=button('⠿','sw-rail-drag'),rename=button('이름','sw-rail-rename');row.dataset.swNavId=key;
-   const alias=state.aliases[key];if(typeof alias==='string'&&alias.trim())link.textContent=alias.trim().slice(0,80);
-   handle.draggable=true;handle.title='끌어서 이동 또는 위아래 방향키';handle.setAttribute('aria-label',link.textContent+' 순서 이동, 위아래 방향키 사용');
-   rename.setAttribute('aria-label',link.textContent+' 이름 변경');link.before(row);row.append(link,handle,rename);
-   const item={key,row,link,original,handle,rename};list.set(key,item);rename.addEventListener('click',()=>editName(item));
+   const row=node('div',null,'sw-rail-row'),handle=button('⠿','sw-rail-drag'),rename=button('이름','sw-rail-rename'),colorBtn=button('색','sw-rail-color'),hide=button('숨김','sw-rail-hide');row.dataset.swNavId=key;
+   handle.draggable=true;handle.title='끌어서 이동 또는 위아래 방향키';colorBtn.setAttribute('aria-haspopup','true');colorBtn.setAttribute('aria-expanded','false');
+   const palette=node('div',null,'sw-rail-palette');palette.setAttribute('role','group');palette.hidden=true;
+   const item={key,row,link,original,handle,rename,colorBtn,hide,palette};
+   const closePalette=()=>{palette.hidden=true;colorBtn.setAttribute('aria-expanded','false');colorBtn.focus({preventScroll:true});};
+   for(const c of PALETTE){const sw=button('','sw-rail-swatch');sw.dataset.color=c;sw.style.background=c;sw.title=c;sw.setAttribute('aria-label',c+' 색으로 지정');sw.addEventListener('click',()=>{setColor(key,c);closePalette();});palette.append(sw);}
+   const none=button('기본색','sw-rail-swatch-none');none.addEventListener('click',()=>{setColor(key,null);closePalette();});palette.append(none);
+   colorBtn.addEventListener('click',()=>{const open=palette.hidden;for(const o of list.values()){o.palette.hidden=true;o.colorBtn.setAttribute('aria-expanded','false');}palette.hidden=!open;colorBtn.setAttribute('aria-expanded',String(open));});
+   hide.addEventListener('click',()=>toggleHide(key));
+   link.before(row);row.append(link,handle,rename,colorBtn,hide,palette);
+   list.set(key,item);rename.addEventListener('click',()=>editName(item));
+   row.addEventListener('keydown',e=>{if(e.key==='F2'&&!e.target.matches('input,textarea,select')){e.preventDefault();enterEdit();editName(item);}});
    handle.addEventListener('keydown',e=>{const previous=e.key==='ArrowUp';if(!previous&&e.key!=='ArrowDown')return;e.preventDefault();
-    place(row,previous?row.previousElementSibling:row.nextElementSibling,!previous,true);
+    if(row.parentNode!==nav)return;place(row,previous?row.previousElementSibling:row.nextElementSibling,!previous,true);
    });
-   handle.addEventListener('dragstart',e=>{dragged=row;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',key);});
+   handle.addEventListener('dragstart',e=>{if(!editing||row.parentNode!==nav){e.preventDefault();return;}dragged=row;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',key);});
    handle.addEventListener('dragend',()=>{dragged=null;cleanDrop();});
-   handle.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'||!e.isPrimary)return;touch={row,id:e.pointerId,target:null,after:false};handle.setPointerCapture(e.pointerId);});
+   handle.addEventListener('pointerdown',e=>{if(e.pointerType==='mouse'||!e.isPrimary||!editing||row.parentNode!==nav)return;touch={row,id:e.pointerId,target:null,after:false};handle.setPointerCapture(e.pointerId);});
    handle.addEventListener('pointermove',e=>{if(!touch||touch.id!==e.pointerId)return;const target=D.elementFromPoint(e.clientX,e.clientY)?.closest('.sw-rail-row');
     cleanDrop();touch.target=target?.parentNode===nav&&target!==row?target:null;
     if(touch.target){const r=target.getBoundingClientRect();touch.after=e.clientY>=r.top+r.height/2;target.dataset.drop=touch.after?'after':'before';}
@@ -165,8 +305,7 @@ function init({shell,rail,bar,metrics={},beforeLayoutChange,afterLayoutChange}={
    function touchEnd(e){if(!touch||touch.id!==e.pointerId)return;const {row,target,after}=touch;touch=null;cleanDrop();if(e.type==='pointerup')place(row,target,after);}
    for(const type of ['pointerup','pointercancel','lostpointercapture'])handle.addEventListener(type,touchEnd);
   }
-  for(const key of new Set(state.order))if(list.has(key))nav.append(list.get(key).row);
-  if(state.order.length){const saved=new Set(state.order);for(const item of list.values())if(!saved.has(item.key))nav.append(item.row);}
+  render();
   nav.addEventListener('dragover',e=>{const to=e.target.closest('.sw-rail-row');if(!dragged||!to||to===dragged){cleanDrop();return;}
    e.preventDefault();e.dataTransfer.dropEffect='move';const r=to.getBoundingClientRect();cleanDrop();to.dataset.drop=e.clientY>=r.top+r.height/2?'after':'before';
   });
