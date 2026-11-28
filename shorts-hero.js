@@ -87,5 +87,6 @@ function render(){if(!host||!cfg)return;ensure(true);chanStats('all',true);chanS
 function applyCols(){const g=host?.querySelector('.sw-hgrid');if(!g)return;g.style.gridTemplateColumns=S.cols?'repeat('+S.cols+',minmax(0,1fr))':'';}
 function refresh(){clearTimeout(timer);timer=setTimeout(()=>{if(cfg&&host&&players.size===0&&!host.contains(document.activeElement))render();},250);}
 async function init(c){cfg=c;host=c.host;loadState();try{const r=await fetch('sample-kinds.json',{cache:'no-store'});if(r.ok){const j=await r.json();kinds=new Set(j.recent||[]);}}catch{}render();}
-window.ShortsHero={init,under,refresh,prodType,render,facts:F,parseNum,state:()=>({...S,players:players.size})};
+function invalidate(){IDX=null;for(const k of Object.keys(CSC))delete CSC[k];}
+window.ShortsHero={invalidate,init,under,refresh,prodType,render,facts:F,parseNum,state:()=>({...S,players:players.size})};
 })();
