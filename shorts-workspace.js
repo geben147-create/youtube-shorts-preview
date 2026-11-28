@@ -26,6 +26,7 @@ function restore(values){for(const [k,v] of Object.entries({...defaults,...value
 function clickView(view,href){
  const frame=$('frame'); $('gallery').hidden=view!=='gallery';$('library').hidden=view!=='library';frame.hidden=view!=='frame';
  if(view==='frame'&&frame.getAttribute('src')!==href)frame.src=href;
+ if(view!=='frame'){try{const u=new URL(location.href);if(view==='library')u.searchParams.set('view','library');else u.searchParams.delete('view');history.replaceState(history.state,'',u);}catch{}}
  $('rail').querySelectorAll('[data-view]').forEach(n=>n.setAttribute('aria-current',String(n.dataset.view===(href||view))));
 }
 function paintPresets(){for(const b of $('presets').querySelectorAll('[data-preset]'))b.setAttribute('aria-pressed',String(active===b.dataset.preset)); $('sortLabel').textContent='정렬 우선 · '+(metrics[fval('sort')]||'기존 기준')+' '+(fval('dir')==='asc'?'↑':'↓');}
@@ -175,7 +176,7 @@ function init(config){api=config;state=read();today=day(api.today);layout();$('s
  else if(!explicit&&state.working){restore(state.working.fields);active=norm(state.working.preset)||'';}
  else if(!explicit){active='business-fit';setval('sort','businessScore');}
  if(params.has('q')){reset();setval('q',params.get('q'));}
- if(location.hash==='#library'){library();clickView('library');}else clickView('gallery');
+ if(location.hash==='#library'||params.get('view')==='library'){library();clickView('library');}else clickView('gallery');
  window.ShortsControls?.init({shell:$('shell'),rail:$('rail'),bar:$('bar'),metrics,beforeLayoutChange:beforeChange,afterLayoutChange:afterChange,getDensity:()=>state.density,setDensity:v=>density(v-state.density)});
  window.ShortsCompare?.init({host:$('compare-host'),getFilters:snapshotFields,play:x=>api.play(x),readEvidence:x=>meta(x).record,getCandidates:()=>api.rows(),getRecords:()=>records,onNotice:msg=>{if(/비교에 담았습니다|트레이에 담았습니다/.test(msg))$('compare-panel').open=true;}});
  window.ShortsSubs?.init({host:$('subs-panel')});window.ShortsTop?.init({host:$('top-panel'),rows:()=>api.rows(),ctx:()=>({amount:api.amount,today,actual:x=>{const m=meta(x);return m.actual!=null||!!m.monthly;}}),onChange:()=>api.refresh(false)});window.ShortsLab?.init({host:$('lab-panel'),rows:()=>api.rows(),onChange:()=>api.refresh(true)});
